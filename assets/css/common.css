@@ -1,0 +1,446 @@
+html{
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+
+/* ---------------------------------
+-------------error---------------
+--------------------------------- */
+.movie-id {
+  margin: 30px auto;
+  display: none;
+  place-items: center;
+  width: 75vw;
+  padding: 20px;
+  border: 2px solid;
+  border-radius: 14px;
+}
+
+.movie-id h2 {
+  font-size: 2.5rem;
+  background: none;
+  text-transform: capitalize;
+}
+
+/* ----------------------------
+  ----button------------- */
+
+.btn-1 {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: linear-gradient(45deg, blue, red);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid white;
+  text-decoration: none;
+}
+
+.btn-1:hover {
+  scale: 1.07;
+}
+
+.btn-2 {
+  background: blue;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 18px;
+  transition: all 0.3s;
+}
+
+.btn-2:hover {
+  background: transparent;
+  color: blue;
+  border: 2px solid red;
+  border-radius: 8px;
+  scale: 1.1;
+}
+
+.watch-now{
+  background: red;
+    border: 1px solid white;
+    text-decoration: none;
+
+   &:hover{
+    background: rgb(95, 14, 14);
+   }
+}
+
+/* ---------------------------------
+-------------NAvbar---------------
+--------------------------------- */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #ff0000b0;
+  background-color: black;
+  height: 80px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 9999999;
+  box-shadow: 0px 3px 20px 0px var(--accent-color);
+}
+
+.nav{
+  background-color: #000000bd;
+   backdrop-filter: blur(7px);
+}
+
+.nav a {
+  text-decoration: none;
+}
+
+.logo img {
+  height: 3.3rem;
+}
+
+.nav-items ul {
+  display: flex;
+}
+
+.nav-items ul li {
+  list-style: none;
+}
+
+.nav-items ul li a {
+  font-size: 18px;
+  color: #b9b9b9;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: none;
+  text-transform: capitalize;
+  margin: 0 10px;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: color;
+}
+
+.nav-items ul li a:focus:after,
+.nav-items ul li a:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+.nav-items ul li .active:after {
+  width: 100%;
+  left: 0%;
+}
+
+.nav-items ul li .active {
+  border: none;
+}
+
+.nav-items ul li a:after {
+  content: "";
+  pointer-events: none;
+  bottom: -12px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: white;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: width, left;
+}
+
+.nav-btn {
+  display: flex;
+  position: relative;
+}
+
+#mobile-menu-open,
+#mobile-menu-close {
+  display: none;
+  font-size: 2.5rem;
+  align-self: center;
+}
+
+/* From Uiverse.io by OnlyCodeChannel */ 
+
+#search-bar{
+  display: flex;
+  place-content: center;
+}
+
+.searchBox {
+  display: flex;
+  max-width: 230px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: #2f3640;
+  border-radius: 50px;
+  position: relative;
+  align-items: center;
+}
+
+.searchButton {
+  color: white;
+  position: absolute;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gradient-2, linear-gradient(90deg, #2AF598 0%, #009EFD 100%));
+  border: 0;
+  display: inline-block;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+}
+/*hover effect*/
+button:hover {
+  color: #fff;
+  background-color: #1A1A1A;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
+  transform: translateY(-3px);
+}
+/*button pressing effect*/
+button:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.searchInput {
+  border: none;
+  background: none;
+  outline: none;
+  color: white;
+  font-size: 15px;
+  padding: 18px 46px 18px 26px;
+  width: 100%;
+}
+
+#slabel{
+  color: aliceblue;
+  text-align: center;
+  display: none;
+  margin-top: 2px;
+  font-size: 12px;
+}
+/* ---------------------------------
+-------------footer---------------
+--------------------------------- */
+
+footer {
+  display: flex;
+  background-color: black;
+  color: white;
+  text-align: center;
+  justify-content: space-around;
+  align-items: center;
+  font-family: "Times New Roman", Times, serif;
+}
+
+footer h3 a {
+  color: white;
+}
+
+footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer ul a i {
+  display: inline;
+  margin: 0 10px;
+  color: white;
+}
+
+footer ul a i {
+  color: white;
+  text-decoration: none;
+  font-size: 1.3rem;
+}
+
+
+
+/* ----------------responsive--------------- */
+
+@media only screen and (max-width: 900px) {
+  #mobile-menu-open {
+    color: white;
+    display: block;
+    margin-left: 25px;
+  }
+
+  #mobile-menu-close {
+    display: block;
+    margin-left: 25px;
+    position: relative;
+    top: 20%;
+    right: 12%;
+    font-size: 3rem;
+    color: white;
+  }
+
+  .momenutop {
+    margin-top: 0;
+    height: 80px;
+    width: 100%;
+    text-align: right;
+    box-shadow: 0px 3px 20px 0px red;
+    border-left: none;
+  }
+
+  .nav-items .mobile-menu {
+    align-items: center;
+    position: absolute;
+    flex-direction: column;
+    gap: 40px;
+    background: rgb(0 0 0 / 52%);
+    backdrop-filter: blur(3px);
+    width: 70%;
+    height: 100vh;
+    padding: 0 0 35px 0;
+    top: -20px;
+    right: 0;
+    z-index: 1;
+    transform: translateX(100%);
+    border-left: 2px solid red;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+
+  .nav-items .nav-active {
+    transform: translateX(0%);
+  }
+
+  .nav-items ul li a {
+    display: inline-block;
+    font-size: 1.8rem;
+    padding: 10px 32px;
+    width: 100%;
+    margin: 0;
+    border-bottom: 2px solid red;
+  }
+
+
+  .error h2,
+  .movie-id h2 {
+    font-size: 2rem;
+  }
+  .error p {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .logo img {
+    height: 2.8rem;
+  }
+
+  .nav button {
+    font-size: 0.7rem;
+  }
+
+  header nav ul li {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .searchBox {
+    max-width: 170px;;
+  }
+
+  #search-box label {
+    font-size: 0.6rem;
+  }
+
+  .nav-btn button {
+    display: none;
+  }
+
+  .error h2,
+  .movie-id h2 {
+    font-size: 1.5rem;
+  }
+
+  .error p {
+    font-size: 1rem;
+  }
+
+  #mobile-menu-open {
+    color: white;
+    display: block;
+  }
+
+  footer {
+    padding: 2px 0;
+  }
+}
+
+@media screen and (max-width: 540px) {
+ .searchInput{
+  padding: 13px 26px ;
+
+ }
+
+}
+
+@media screen and (max-width: 450px) {
+
+#mobile-menu-open{
+  position: relative;
+  right: 10px;
+}
+
+.logo img {
+  height: 1.6rem;
+  margin-left: 5px;
+}
+
+
+  footer h3 {
+    font-size: 0.8rem;
+  }
+
+  footer ul a i {
+    margin: 0 7px;
+  }
+
+  footer ul a i {
+    font-size: 1rem;
+  }
+
+  .error h2,
+  .movie-id h2 {
+    font-size: 1.3rem;
+  }
+
+  .error p {
+    font-size: 0.8rem;
+  }
+
+  .searchBox {
+    max-width: 140px;;
+  }
+}
+@media screen and (max-width: 300px) {
+  .error h2,
+  .movie-id h2 {
+    font-size: 1rem;
+  }
+
+  .error p {
+    font-size: 0.4rem;
+  }
+}

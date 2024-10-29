@@ -1,0 +1,201 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+
+
+main {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 100px auto 0;
+}
+
+.loading-spinner {
+    --height-of-loader: 14px;
+    --loader-color: #0071e2;
+    width: 250px;
+    height: var(--height-of-loader);
+    border-radius: 30px;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  .loading-spinner::before {
+    content: "";
+    position: absolute;
+    background: var(--loader-color);
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    border-radius: 30px;
+    animation: moving 1s ease-in-out infinite;
+  }
+  
+  @keyframes moving {
+    50% {
+      width: 100%;
+    }
+  
+    100% {
+      width: 0;
+      right: 0;
+      left: unset;
+    }
+  }
+.tv-show-details {
+    display: none;
+    background-color: #00000087;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.tv-show-details.active {
+    display: flex;
+}
+
+.tv-show-details img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+}
+
+.tv-show-info {
+    color: #333;
+    display: contents;
+}
+
+.tv-show-info h2 {
+    font-size: 2rem;
+    margin-top: 0;
+    color: white;
+}
+
+.tv-show-info p {
+    line-height: 1.6;
+    color: white;
+}
+
+.tv-show-info .info {
+    margin-top: 1rem;
+}
+
+.tv-show-info .info p {
+    margin: 0.5rem 0;
+}
+
+.related-images {
+    margin-top: 2rem;
+    position: relative;
+}
+
+.related-images h3 {
+    margin-bottom: 1rem;
+    color: red;
+    font-size: 1.5rem;
+}
+
+.carousel {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    gap: 1rem;
+}
+
+.carousel img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.carousel img:hover {
+    transform: scale(1.1);
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-control.left {
+    left: 0;
+}
+
+.carousel-control.right {
+    right: 0;
+}
+
+.trailer-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+    align-items: center;
+    justify-content: center;
+}
+
+.trailer-content {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    height: 45%;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media screen and (max-width:768px) {
+
+    .tv-show-details.active{
+        flex-direction: column;
+    }
+
+    .related-images{
+        width: 85%;
+        margin: 2rem auto 0;
+    }
+
+    .related-images img{
+        max-width: 180px;
+    }
+    
+}
+
+@media screen and (max-width:500px) {
+    .related-images{
+        width: 95%;
+    }
+}

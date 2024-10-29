@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - RMDB</title>
+    <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Firebase 8.10 CDN -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+
+<body>
+    <main>
+        <a href="/">        <img class="logo" src="../assets/img/NEPFLIX-logo.png" alt="">
+        </a>        <div class="form-container">
+            <h2>Login</h2>
+            <p class="error-msg"></p>
+            <p class="success-msg"></p>
+            <form id="login-form">
+                <div class="input-container">
+                    <i class="fa-regular fa-envelope left-icon"></i>
+                    <input type="email" id="login-email" placeholder="Email" required>
+                </div>
+                <div class="input-container">
+                    <i class="fa-solid fa-lock left-icon"></i>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <i class="fas fa-eye right-icon" id="togglePasswordLogin" ></i>
+                </div>
+              
+                <div class="loader">
+                    <button type="submit" class="btn">
+                        <span class="btn-text">Login</span>
+                    </button>
+                    <div class="spinner">
+                        <p>please wait</p>
+                        <i class="fas fa-spinner fa-spin btn-spinner"></i>                    </div>
+                </div>
+            </form>
+            <a class="forgot-btn" href="/auth/forgot.html">Forgot password?</a>
+            <div class="line"></div>
+            <a class="btn2" href="/auth/signup.html">Don't have an account?</a>
+        </div>
+    </main>
+
+    <!-- SweetAlert2 for alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Custom JS -->
+    <script src="/assets/js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+/* Global styles */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 0;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+header nav ul li {
+    display: inline;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+header nav form {
+    display: flex;
+    align-items: center;
+}
+
+header nav input[type="text"] {
+    padding: 0.5rem;
+    border: 1px solid #333;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+header nav button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    transition: background-color 0.3s;
+}
+
+header nav button:hover {
+    background-color: #575757;
+}
+
+main {
+    padding: 2rem 1rem;
+}
+
+#movies-section {
+    text-align: center;
+}
+
+#movies-section h2 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 2rem;
+}
+
+#movies-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.movie-item {
+    flex: 1 1 200px;
+    max-width: 200px;
+}
+
+.movie-item img {
+    width: 100%;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.movie-item img:hover {
+    transform: scale(1.1);
+}
+
+.movie-item a {
+    text-decoration: none;
+    color: black;
+}
+.movie-item p {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+.btn-page {
+    padding: 10px 20px;
+    font-size: 16px;
+    background: linear-gradient(45deg, blue, red);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid white;
+  }
+
+  .btn-pagenum {
+    color: red;
+    border: 2px solid blue;
+    border-radius: 6px;
+    padding: 12px 18px;
+    transition: all 0.3s;
+    margin:  0 14px ;
+  }
+
+@media only screen and (max-width: 500px) {
+ 
+
+.movie-item{
+    max-width: 150px;
+}
+
+}
+@media only screen and (max-width: 390px) {
+    #pagination span {
+        font-size: 0rem;
+    }
+
+}
+
+@media only screen and (max-width: 500px) {
+ 
+
+    .movie-item{
+        max-width: 120px;
+    }
+
+}

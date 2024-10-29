@@ -1,0 +1,232 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+main {
+    padding: 2rem 1rem;
+    background-color: rgba(0, 0, 0, 0.65);
+    margin-top: 4rem;
+    min-height: 100vh;
+}
+
+
+
+.tv-show-section {
+    margin-bottom: 2rem;
+    max-width: 1200px;
+    margin: 100px auto 0;
+}
+
+.tv-show-section h2 {
+    margin: 3rem;
+    color: red;
+    font-size: 2rem;
+}
+
+/* Carousel styles */
+.carousel {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 2rem auto;
+}
+
+.carousel-wrapper {
+    align-items: center;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 20%;
+    box-sizing: border-box;
+    margin: 0 12px;
+}
+
+.carousel img {
+    width: 100%;
+    border-radius: 14px;
+    max-width: 250px;
+    height: auto;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.carousel-control.left {
+    left: 10px;
+}
+
+.carousel-control.right {
+    right: 10px;
+}
+
+.carousel-control:focus {
+    outline: none;
+}
+
+
+
+.tv-shows-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.tv-show-item {
+    flex: 1 1 150px;
+    max-width: 150px;
+}
+
+.tv-show-item img {
+    width: 100%;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.tv-show-item img:hover {
+    transform: scale(1.1);
+}
+
+
+/* Existing CSS styles... */
+
+#you-may-like {
+    margin-top: 2rem;
+}
+
+#you-may-like h2 {
+    margin-bottom: 1rem;
+    color: red;
+    font-size: 2rem;
+}
+
+.tv-shows-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    place-content: center;
+}
+
+.tv-show-item {
+    flex: 1 1 150px;
+    max-width: 150px;
+}
+
+.tv-show-item img {
+    width: 100%;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.tv-show-item a  {
+  text-decoration: none;
+}
+
+.tv-show-item a p {
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.tv-show-item img:hover {
+    transform: scale(1.1);
+}
+
+.tv-shows-container{
+    color: red;
+}
+
+/* Add these styles for pagination controls */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.pagination-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.pagination-button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+
+
+/* Fixed Animated Background Image */
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -1; /* Ensures the background is behind the content */
+    animation: backgroundAnimation 30s linear infinite;
+}
+
+/* Background Image Animation */
+@keyframes backgroundAnimation {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
+}
+
+
+@media only screen and (max-width: 900px) {
+    .carousel img {
+        max-width: 200px;
+    }
+}
+@media only screen and (max-width: 700px) {
+    .pagination-btn {
+               margin: 0 7px;
+        padding: 0.2rem .5rem;
+    }
+
+    .carousel-item {
+        min-width: 40%;
+        margin: 0 10px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .carousel img {
+        max-width: 140px;
+    }
+
+    .tv-shows-list {
+        gap: 1.4rem;
+    }
+
+    .tv-show-section h2{
+        font-size: 1.7rem;
+    }
+}

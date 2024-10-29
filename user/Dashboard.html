@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/dashboard.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="profile-card">
+                <input type="file" id="profile-upload" accept="image/*" class="profile-upload" />
+                <img src="profile-placeholder.jpg" alt="Profile Image" class="profile-img" id="profile-img">
+                <h2 id="user-name">User Name</h2>
+                <p id="user-email">user@example.com</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="#dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#favorites"><i class="fas fa-star"></i> Favorites</a></li>
+                <li><a href="#recently-watched"><i class="fas fa-eye"></i> Recently Watched</a></li>
+                <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#logout" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+        <main class="main-content">
+            <section id="dashboard">
+                <h1>Dashboard</h1>
+                <div class="watchlist">
+                    <h2>Your Watchlist</h2>
+                    <div class="watchlist-items">
+                        <!-- Dynamically populated watchlist items -->
+                    </div>
+                </div>
+            </section>
+
+            <section id="favorites" style="display: none;">
+                <h1>Favorites</h1>
+                <!-- Content for favorites -->
+            </section>
+
+            <section id="recently-watched" style="display: none;">
+                <h1>Recently Watched</h1>
+                <!-- Content for recently watched -->
+            </section>
+
+            <section id="settings" style="display: none;">
+                <h1>Settings</h1>
+                <ul>
+                    <li><a href="#update-profile">Update Profile</a></li>
+                    <!-- Add more settings options here -->
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <!-- Firebase 8.10 CDN -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="/assets/js/dashboard.js"></script> <!-- Link to your JS file -->
+</body>
+</html>

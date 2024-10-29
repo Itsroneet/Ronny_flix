@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance</title>
+  <link rel="stylesheet" href="/assets/css/maintenance.css">
+  <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/x-icon">
+</head>
+<body>
+
+<div class="maintenance-container">
+    <div class="maintenance-icon">⚙️</div>
+    <h1>Under Maintenance</h1>
+    <p>We are currently performing scheduled maintenance. Please check back soon.</p>
+    <div class="timer" id="countdown-timer">Estimated time remaining: 00:00:00</div>
+    <a href="/">Reload</a>
+    <div class="background-gears"></div>
+    <div class="background-gears small"></div>
+</div>
+
+<script>
+    // Countdown timer logic
+    const countdownElement = document.getElementById('countdown-timer');
+    let timeRemaining = 7200; // 2 hours in seconds
+
+    function updateCountdown() {
+        const hours = Math.floor(timeRemaining / 3600);
+        const minutes = Math.floor((timeRemaining % 3600) / 60);
+        const seconds = timeRemaining % 60;
+
+        countdownElement.innerHTML = `Estimated time remaining: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        if (timeRemaining > 0) {
+            timeRemaining--;
+            setTimeout(updateCountdown, 1000);
+        } else {
+            countdownElement.innerHTML = "Maintenance complete. Reload the page.";
+        }
+    }
+
+    updateCountdown();
+</script>
+
+</body>
+</html>

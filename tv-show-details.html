@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Show Details - RMDB</title>
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/tv-show-details.css">
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+    <header>
+      <div class="nav">
+        <a href="/">
+          <div class="logo">
+  <img src="assets/img/NEPFLIX-logo.png" alt="" srcset="">
+          </div>
+        </a>
+
+        <div class="nav-items">
+          <ul class="mobile-menu">
+            <div class="momenutop">
+              <i class="fa-solid fa-xmark" id="mobile-menu-close"></i>
+            </div>
+            <li><a href="/" >home</a></li>
+            <li><a href="/tvshows.html" class="active">TV Shows</a></li>
+            <li><a href="/movies.html">Movies</a></li>
+            <li><a href="auth/login.html">Login</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-btn">
+          <div id="search-bar">
+            <div id="search-box">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search for movies, TV shows, actors..."
+              />
+              <label for="search-input" id="slabel"
+                >search box cannot be empty</label
+              >
+            </div>
+            <button id="search-button" class="btn-1">Search</button>
+          </div>
+          <i class="fa-solid fa-bars" id="mobile-menu-open"></i>
+        </div>
+      </div>
+  
+            <div class="nav-btn">
+              <i class="fa-solid fa-bars" id="mobile-menu-open">c</i>
+            </div>
+          </div>
+    </header>
+    <main>
+      <div id="tv-show-details" class="tv-show-details">
+          <div id="loading-spinner" class="loading-spinner"></div>
+       
+
+<div class="movie-id" id="movie-id">
+  <h2>Movie ID not found.</h2>
+</div>
+            <!-- TV Show details will be dynamically inserted here -->
+        </div>
+        <div id="related-images" class="related-images">
+            <!-- Related images carousel will be dynamically inserted here -->
+        </div>
+    </main>
+    <div id="trailer-modal" class="trailer-modal">
+        <div class="trailer-content">
+            <span id="close-trailer" class="close">&times;</span>
+            <iframe id="trailer-video" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+    <footer>
+
+      <h3>Copyright &copy; 2024 <a href="https://ronitbhandari.com.np/" target="_blank">Ronit Bhandari</a></h3>
+      <ul>
+      <a href="https://www.facebook.com/itsmeroneet/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/itsme_roneet" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://ronitbhandari.com.np/" target="_blank"><i class="fa-solid fa-globe"></i></a>
+      </ul>
+    </footer>
+    <script src="assets/js/tv-show-details.js"></script>
+    <script src="assets/js/navbar.js"></script>
+
+</body>
+</html>

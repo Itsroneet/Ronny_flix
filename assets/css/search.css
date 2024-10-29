@@ -1,0 +1,94 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url(../img/nepflix_bg.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+/* Existing CSS styles... */
+
+#search-results {
+  margin-top: 7.5rem;
+  padding: 0 1rem;
+}
+
+#search-results h2 {
+  margin-bottom: 1rem;
+  color: red;
+  text-align: center;
+  font-size: 2rem;
+}
+
+#results-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 85vw;
+  margin: 40px auto;
+}
+
+.search-result-item {
+  background-color: #00000085;
+  padding: 7px 25px;
+  border-radius: 17px;
+  width: 100%;
+  box-shadow: 0px 0px 20px 4px;
+  transition: all 0.3s;
+  backdrop-filter: blur(5px);
+}
+
+.search-result-item:hover {
+  transform: scale(1.03);
+  background-color: #000000a6;
+  backdrop-filter: blur(8px);
+}
+
+
+.search-result-item a {
+  display: flex;
+  height: 200px;
+  text-decoration: none;
+  gap: 15px;
+  color: white;
+}
+
+.search-result-item img {
+  height: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.search-result-item h3 {
+  color: blue;
+}
+.search-result-item p {
+  color: white;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  overflow: hidden;
+}
+
+#textarea {
+  margin: 0 20px;
+}
+
+@media screen and (max-width: 450px) {
+    .search-result-item{
+        height: 120px;
+    }
+
+  .search-result-item p {
+    font-size: 0.5rem;
+  }
+  .search-result-item img {
+    height: 100px;
+  }
+  .search-result-item h3 {
+font-size: .7rem;  }
+}
