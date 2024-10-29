@@ -233,7 +233,10 @@ button:active {
   text-align: center;
   display: none;
   margin-top: 2px;
-  font-size: 12px;
+  font-size: 11px;
+  position: absolute;
+  bottom: -10px;
+  right: 39%;
 }
 /* ---------------------------------
 -------------footer---------------
