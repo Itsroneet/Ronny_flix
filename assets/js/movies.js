@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const apiKey = '5a41a4ff0e4bfcc5608165fe4ae559ed';
     const moviesContainer = document.getElementById('movies-container');
     const paginationContainer = document.getElementById('pagination-container');
     let currentPage = 1;

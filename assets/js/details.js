@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const apiKey = '5a41a4ff0e4bfcc5608165fe4ae559ed';
     const movieDetailsContainer = document.getElementById('movie-details');
     const relatedImagesContainer = document.getElementById('related-images');
     const trailerModal = document.getElementById('trailer-modal');
@@ -11,15 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const movieId = urlParams.get('movieId');
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyApELmEIGS-7qjseh3k6_ptVuyRGNTHCbc",
-        authDomain: "rmdb-2081.firebaseapp.com",
-        projectId: "rmdb-2081",
-        storageBucket: "rmdb-2081.appspot.com",
-        messagingSenderId: "469213743669",
-        appId: "1:469213743669:web:cc977291cb822423717f7c",
-        measurementId: "G-CH9EKJX64R"
-    };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
@@ -86,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <button id="add-favorite" class="btn btn-favorite"><i class="fa fa-heart"></i> Add to Favorites</button>
             </div>
         `;
-        document.title = movie.title + " - RMDB";
+        document.title = movie.title + " - Ronny Verse";
         movieDetailsContainer.innerHTML = movieDetailsHTML;
         movieDetailsContainer.classList.add('active');
 

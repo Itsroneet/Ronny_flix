@@ -108,7 +108,7 @@ body {
 }
 
 .logo img {
-  height: 3.3rem;
+  height: 4.4rem;
 }
 
 .nav-items ul {
@@ -348,7 +348,7 @@ footer ul a i {
 
 @media only screen and (max-width: 600px) {
   .logo img {
-    height: 2.8rem;
+    height: 3.3rem;
   }
 
   .nav button {
@@ -406,10 +406,7 @@ footer ul a i {
   right: 10px;
 }
 
-.logo img {
-  height: 1.6rem;
-  margin-left: 5px;
-}
+
 
 
   footer h3 {

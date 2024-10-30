@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const apiKey = '5a41a4ff0e4bfcc5608165fe4ae559ed';
     const featuredCarousel = document.getElementById('featured-carousel');
     const trendingShowsContainer = document.getElementById('trending-tv-shows-list');
     const upcomingShowsContainer = document.getElementById('upcoming-tv-shows-list');

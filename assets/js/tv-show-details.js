@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const apiKey = '5a41a4ff0e4bfcc5608165fe4ae559ed';
     const loadingSpinner = document.getElementById('loading-spinner');
     const tvShowDetailsContainer = document.getElementById('tv-show-details');
     const relatedImagesContainer = document.getElementById('related-images');

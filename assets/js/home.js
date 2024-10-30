@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const apiKey = '5a41a4ff0e4bfcc5608165fe4ae559ed';
     const heroSection = document.getElementById('hero');
     const loadingSpinner = document.querySelectorAll('.loading-spinner');
     const contentgrid= document.querySelectorAll('.content-grid');
