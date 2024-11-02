@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TV Show Details - Ronny flix</title>
     <link rel="shortcut icon" href="assets/img/favicon.png" type="image/png">
-    <link rel="stylesheet" href="assets/css/tv-show-details.css">
     <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/tv-show-details.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
 <body>
@@ -89,8 +89,55 @@
 <div class="movie-id" id="movie-id">
   <h2>Movie ID not found.</h2>
 </div>
-            <!-- TV Show details will be dynamically inserted here -->
+           <!-- TV Show details will be dynamically inserted here -->
         </div>
+
+
+
+        <div id="superembed-player">
+
+<div class="sel-container">
+<div class="sel-container2">
+  
+  <div id="server-selector " class="selector">
+    <label for="provider-select" >Choose a server:</label>
+    <select id="provider-select" class="select">
+        <option value="superembed">SuperEmbed</option>
+        <option value="autoembed">AutoEmbed</option>
+        <option value="embedsoap">EmbedSoap</option>
+        <option value="smashystream">SmashyStream</option>
+        <option value="trailer">Trailer</option>
+    </select>
+</div>
+
+<div id="season-selector " class="selector">
+    <label for="season-select">Choose a season:</label>
+    <select id="season-select" class="select">
+        <!-- Populate these options dynamically if necessary -->
+        <!-- Add more seasons as needed -->
+    </select>
+</div>
+
+<div id="episode-selector" class="selector">
+    <label for="episode-select">Choose an episode:</label>
+    <select id="episode-select" class="select">
+        <!-- Populate these options dynamically if necessary -->
+       
+        <!-- Add more episodes as needed -->
+    </select>
+</div>
+</div>
+
+
+<button id="play-button" class="play-btn">Play</button>
+
+</div>         
+         <div id="video-container">
+       <img class="video-watermark" src="assets/img/logo.png" alt="">
+             <iframe id="video-frame" width="640" height="360" style="display: none;" allowfullscreen></iframe>
+         </div>
+           </div>
+
         <div id="related-images" class="related-images">
             <!-- Related images carousel will be dynamically inserted here -->
         </div>

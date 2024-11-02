@@ -54,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p><strong>Number of Seasons:</strong> ${show.number_of_seasons}</p>
                         <p><strong>Cast:</strong> ${cast}</p>
                     </div>
-                    ${trailer ? `<button id="view-trailer" class="btn-1">View Trailer</button>` : ''}
+                                    <a class="btn watch-now"  href="#superembed-player">Watch Now</a>
+                    ${trailer ? `<button id="view-trailer" class="btn-1 btn">View Trailer</button>` : ''}
                 </div>
             </div>
         `;
@@ -67,6 +68,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 trailerModal.style.display = 'flex';
             });
         }
+
+        document.querySelector(".watch-now").addEventListener("click",function(){
+            document.getElementById("superembed-player").style.display = "flex";
+            updateEndpoint();
+            if (endpoint) {
+                videoFrame.src = endpoint;
+                videoFrame.style.display = 'block';
+                videoFramelogo.style.display = 'block';
+            }
+        })
 
         displayRelatedImages(show.images.backdrops);
     }
@@ -115,4 +126,104 @@ document.addEventListener('DOMContentLoaded', function() {
         fetchTVShowDetails();
     } else {
         iderror.style.display="block";     }
+
+
+
+//======================================= 
+//======================================= 
+//======================================= 
+
+    const providerSelect = document.getElementById('provider-select');
+    const seasonSelect = document.getElementById('season-select');
+    const episodeSelect = document.getElementById('episode-select');
+    const playButton = document.getElementById('play-button');
+    const videoFrame = document.getElementById('video-frame');
+    const videoFramelogo = document.querySelector('.video-watermark');
+    let endpoint = '';
+    let tmdbSeries = {}; // Initialize tmdbSeries
+
+    // Fetch series data and populate the season dropdown
+    async function fetchSeriesData(seriesId) {
+        try {
+            const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}?api_key=${apiKey}`);
+            tmdbSeries = await response.json();
+            
+            // Populate season select dropdown
+            tmdbSeries.seasons.forEach(season => {
+                const option = document.createElement('option');
+                option.value = season.season_number;
+                option.textContent = `Season ${season.season_number}`;
+                seasonSelect.appendChild(option);
+            });
+
+            // Set default season to 1 and trigger change to load episodes for season 1
+            seasonSelect.value = 1;
+            seasonSelect.dispatchEvent(new Event('change'));
+        } catch (error) {
+            console.error('Error fetching series data:', error);
+        }
+    }
+
+    // Fetch episode count for a selected season and populate episode select dropdown
+    async function fetchEpisodes(seriesId, seasonNumber) {
+        try {
+            const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}/season/${seasonNumber}?api_key=${apiKey}`);
+            const seasonData = await response.json();
+            
+            // Clear current episode options
+            episodeSelect.innerHTML = '';
+            
+            // Populate episode select dropdown based on the episode count
+            seasonData.episodes.forEach(episode => {
+                const option = document.createElement('option');
+                option.value = episode.episode_number;
+                option.textContent = `Episode ${episode.episode_number}`;
+                episodeSelect.appendChild(option);
+            });
+
+            // Set default episode to 1
+            episodeSelect.value = 1;
+        } catch (error) {
+            console.error('Error fetching episode data:', error);
+        }
+    }
+
+    // Event listener for season selection to fetch and populate episodes
+    seasonSelect.addEventListener('change', function () {
+        const selectedSeason = seasonSelect.value;
+        if (selectedSeason) {
+            fetchEpisodes(tmdbSeries.id, selectedSeason);
+        }
+    });
+
+    function updateEndpoint() {
+        const provider = providerSelect.value;
+        const seasonNumber = seasonSelect.value;
+        const episodeNumber = episodeSelect.value;
+        const seriesId = tmdbSeries.id;
+
+        if (provider === 'superembed') {
+            endpoint = `https://multiembed.mov/?video_id=${seriesId}&season=${seasonNumber}&episode=${episodeNumber}&tmdb=1`;
+        } else if (provider === 'autoembed') {
+            endpoint = `https://player.autoembed.cc/embed/tv/${seriesId}/${seasonNumber}/${episodeNumber}`;
+        } else if (provider === 'embedsoap') {
+            endpoint = `https://www.embedsoap.com/embed/series/${seriesId}/${seasonNumber}/${episodeNumber}`;
+        } else if (provider === 'smashystream') {
+            endpoint = `https://player.smashy.stream/series/${seriesId}/${seasonNumber}/${episodeNumber}`;
+        } else if (provider === 'trailer') {
+            endpoint = `https://www.youtube.com/embed/${trailer.key}?autoplay=1`;
+        }
+    }
+
+    playButton.addEventListener('click', function () {
+        updateEndpoint();
+        if (endpoint) {
+            videoFrame.src = endpoint;
+            videoFrame.style.display = 'block';
+            videoFramelogo.style.display = 'block';
+        }
+    });
+
+    // Call fetchSeriesData with your series ID
+    fetchSeriesData(tvId);
 });

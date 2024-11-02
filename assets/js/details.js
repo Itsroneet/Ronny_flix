@@ -124,6 +124,12 @@ document.addEventListener('DOMContentLoaded', function () {
         
         document.querySelector(".watch-now").addEventListener("click",function(){
             document.getElementById("superembed-player").style.display = "flex";
+            updateEndpoint();
+            if (endpoint) {
+                videoFrame.src = endpoint;
+                videoFrame.style.display = 'block';
+                videoFramelogo.style.display = 'block';
+            }
         })
 
 

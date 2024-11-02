@@ -383,7 +383,7 @@ main {
     border: 2px solid red;
 }
 
-.btn.secondary-btn {
+.btn .secondary-btn {
     box-sizing: border-box;
     background: transparent;
         color: red;
@@ -556,6 +556,8 @@ main {
         width: 100%;
     }
 }
+
+
 @media screen and (max-width:768px) {
     
     .movie-details.active{

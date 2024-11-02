@@ -5,6 +5,9 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background: url(../img/main-bg.jpg);
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 header {
@@ -82,8 +85,10 @@ main {
 }
 
 .movie-item {
+    position: relative;
     flex: 1 1 200px;
     max-width: 200px;
+    overflow: hidden;
 }
 
 .movie-item img {
@@ -104,6 +109,16 @@ main {
     text-align: center;
     margin-top: 0.5rem;
     font-size: 1rem;
+    position: absolute;
+    background-color: #000000bf;
+    color: white;
+    width: 100%;
+    padding: 10px 0 20px;
+    top: 80.3%;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+
 }
 
 .btn-page {

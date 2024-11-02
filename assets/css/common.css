@@ -70,7 +70,7 @@ body {
   scale: 1.1;
 }
 
-.watch-now{
+.watch-now,#saveCountryButton{
   background: red;
     border: 1px solid white;
     text-decoration: none;
@@ -238,6 +238,99 @@ button:active {
   bottom: -10px;
   right: 39%;
 }
+
+/* ---------------------------------
+------------- country select popup---------------
+--------------------------------- */
+
+/* Overlay background for the popup */
+#countryPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Popup Overlay */
+#countryPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it is above other content */
+}
+
+/* Popup Content */
+
+
+.popup-content {
+  background-color: black; /* White background for the popup */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 90%;
+  max-width: 400px; /* Maximum width for larger screens */
+}
+
+.popup-content img{
+  height: 55px;
+}
+
+/* Popup Heading */
+.popup-content h2 {
+  color: white;
+  margin-bottom: 10px;
+  font-size: 24px; /* Adjust font size for the heading */
+}
+
+/* Popup Description */
+.popup-content p {
+  line-height:22px;
+  color: white;
+  margin-bottom: 20px;
+  font-size: 16px; /* Font size for the description */
+}
+
+/* Country Dropdown */
+#countrySelect {
+  width: 100%;
+  color: white;
+  margin-bottom: 15px;
+    padding: 10px; /* Adds padding inside the dropdown */
+    font-size: 16px; /* Font size */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: black; /* Light background color */
+    cursor: pointer; /* Pointer cursor for better UX */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+#saveCountryButton {
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 18px;
+  transition: all 0.3s;
+}
+
+
+
+
+
+
 /* ---------------------------------
 -------------footer---------------
 --------------------------------- */
@@ -346,6 +439,22 @@ footer ul a i {
   }
 }
 
+@media screen and (max-width:768px) {
+
+  .Console-alert-popup-content p{
+  font-size: 1.3rem;
+ 
+}
+
+  .popup-header h2{
+  font-size: 1.3rem;
+}
+
+.console-alert-icon{
+  font-size: 2rem;
+}
+}
+
 @media only screen and (max-width: 600px) {
   .logo img {
     height: 3.3rem;
@@ -432,6 +541,10 @@ footer ul a i {
 
   .searchBox {
     max-width: 140px;;
+  }
+
+  .popup-content{
+    max-width: 80vw;
   }
 }
 @media screen and (max-width: 300px) {
