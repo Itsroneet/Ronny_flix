@@ -101,6 +101,7 @@ if (!hasVisited) {
                 });
 
                 hideLoadingSpinner(); // Hide loading spinner
+
                 // Auto-remove loader after a delay
                 // Handle the loader fade-out
 setTimeout(() => {
@@ -110,7 +111,8 @@ setTimeout(() => {
             welcomeScreen.remove(); // Remove loader from DOM after fade-out
         }, 1000); // Matches the CSS transition duration
     }
-}, 2000); // Loader delay (4 seconds)
+}, 2000); // Loader delay (2 seconds)
+
 
 
             })
