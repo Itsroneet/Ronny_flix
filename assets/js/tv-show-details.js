@@ -66,7 +66,6 @@ if (!firebase.apps.length) {
                     </div>
                     <a class="btn watch-now" href="#superembed-player">Watch Now</a>
                     ${trailer ? `<button id="view-trailer" class="btn-1 btn">View Trailer</button>` : ''}
-                    <button id="add-favorite" class="btn btn-favorite"><i class="fa fa-heart"></i> Add to Favorites</button>
                 </div>
             </div>
         `;

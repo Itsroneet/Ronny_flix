@@ -1,3 +1,155 @@
+/* -----------loader-------- */
+
+
+/* Loader Container */
+#welcome-screen {
+  text-align: center;
+  height: 100vh;
+  display: grid;
+  place-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background: black;
+  z-index: 9999999;
+  transition: all 1s ;
+}
+
+.hidden {
+  display: none; /* Fully hide elements */
+}
+
+.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+/* Loader Content */
+.loader-content {
+  position: relative;
+  text-align: center;
+  z-index: 10;
+}
+
+/* Glowing Logo */
+.logo-image {
+  width: 160px;
+  height: auto;
+  animation: pulse-glow 2s infinite alternate;
+  filter: drop-shadow(0 0 20px #e50914);
+}
+
+/* Slogan Wrapper */
+.slogan-wrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.slogan-part {
+  font-size: 1.2rem;
+  color: #f1f1f1;
+  letter-spacing: 2px;
+  animation: fade-slide 2s ease-in-out infinite alternate;
+}
+
+/* Style each slogan part differently */
+.slogan-part:nth-child(1) {
+  animation-delay: 0s;
+  color: #e50914;
+}
+
+.slogan-part:nth-child(2) {
+  animation-delay: 0.3s;
+  color: #feca57;
+}
+
+.slogan-part:nth-child(3) {
+  animation-delay: 0.6s;
+  color: #ff6f61;
+}
+
+/* Loader Animation */
+.loader-animation {
+  margin: auto;
+  margin-top: 40px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+}
+
+.ring {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 4px solid transparent;
+  border-top: 4px solid;
+  border-radius: 50%;
+  animation: rotate 1.5s infinite linear;
+}
+
+.ring:nth-child(1) {
+  border-top-color: #e50914;
+  animation-delay: 0s;
+}
+
+.ring:nth-child(2) {
+  width: 80px;
+  height: 80px;
+  border-top-color: #feca57;
+  animation-delay: 0.3s;
+}
+
+.ring:nth-child(3) {
+  width: 60px;
+  height: 60px;
+  border-top-color: #ff6f61;
+  animation-delay: 0.6s;
+}
+
+/* Keyframes for Animations */
+@keyframes rotate {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 15px #e50914);
+  }
+  100% {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 30px #ff6f61);
+  }
+}
+
+@keyframes fade-slide {
+  0% {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+
+
+/* -----------hero-------- */
+
 #hero {
   position: relative;
   height: 83vh;

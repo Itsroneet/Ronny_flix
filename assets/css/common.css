@@ -464,6 +464,7 @@ body {
 .newsletter-form input {
   flex: 1;
   padding: 16px 12px;
+  padding-right: 55px;
   border-radius: 5px;
   box-sizing: border-box;
   border: 1px solid #555;
@@ -472,6 +473,7 @@ body {
   font-size: 15px;
   outline: none;
   transition: border 0.3s ease;
+  color-scheme: dark;
 }
 
 .newsletter-form input:focus ,.newsletter-form input:hover {
@@ -502,7 +504,7 @@ body {
 
 .newsletteralert{
   background: black;
-  border: 1px solid red;
+  border: 2px solid red;
   border-radius: 14px;
   color: white;
 }
@@ -591,7 +593,7 @@ body {
     position: absolute;
     flex-direction: column;
     gap: 40px;
-    background: rgb(0 0 0 / 52%);
+    background: rgba(0, 0, 0, 0.815);
     backdrop-filter: blur(3px);
     width: 70%;
     height: 100vh;
@@ -632,6 +634,10 @@ body {
   }
   #sumbit-btn{
     display: block;
+  }
+
+  .newsletter-form input {
+    padding: 16px 12px;
   }
 }
 

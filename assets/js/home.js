@@ -1,47 +1,71 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const heroSection = document.getElementById('hero');
     const loadingSpinner = document.querySelectorAll('.loading-spinner');
-    const contentgrid= document.querySelectorAll('.content-grid');
-    
-    
+    const contentgrid = document.querySelectorAll('.content-grid');
+
+
     let activeHoverInfo = null; // Variable to track the active hover info
 
-     // Initialize Firebase
-     firebase.initializeApp(firebaseConfig);
-     var auth = firebase.auth();
-     var db = firebase.firestore();
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var auth = firebase.auth();
+    var db = firebase.firestore();
 
-    
-    
-        // Ensure Firebase is initialized here...
-    
-        // Function to track recently watched movies
-        function trackRecentlyWatched(movieId) {
-            const user = firebase.auth().currentUser; // Get the current user
-            
-            if (user) {
-                const userId = user.uid; // Get the current user's UID
-                db.collection("users").doc(userId).update({
-                    recentlyWatched: firebase.firestore.FieldValue.arrayUnion(movieId)
-                }).catch(error => {
-                    console.error("Error adding movie to recently watched:", error);
-                });
-            } 
+
+
+// JavaScript for managing the welcome screen and loader
+const welcomeScreen = document.getElementById('welcome-screen');
+
+// Check if the user has already visited
+const hasVisited = sessionStorage.getItem('ronnyflixVisited');
+
+if (!hasVisited) {
+    // Show welcome screen
+    welcomeScreen.classList.remove('hidden');
+
+    // Fade out the welcome screen after 3 seconds
+    setTimeout(() => {
+        welcomeScreen.classList.add('fade-out'); // Add fade-out class
+        setTimeout(() => {
+            welcomeScreen.classList.add('hidden'); // Fully hide welcome screen
+            sessionStorage.setItem('ronnyflixVisited', 'true'); // Mark as visited
+        }, 1000); // Matches the CSS transition duration
+    }, 3000); // 3-second delay
+} else {
+    // Skip welcome screen
+    welcomeScreen.remove();
+}
+
+
+
+
+    // Function to track recently watched movies
+    function trackRecentlyWatched(movieId) {
+        const user = firebase.auth().currentUser; // Get the current user
+
+        if (user) {
+            const userId = user.uid; // Get the current user's UID
+            db.collection("users").doc(userId).update({
+                recentlyWatched: firebase.firestore.FieldValue.arrayUnion(movieId)
+            }).catch(error => {
+                console.error("Error adding movie to recently watched:", error);
+            });
         }
-    
-        // Move fetchAndDisplayMovies definition here
-        function fetchAndDisplayMovies(url, containerId) {
-            showLoadingSpinner(); // Show loading spinner
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const movies = data.results;
-                    const container = document.getElementById(containerId);
-                    container.innerHTML = ''; // Clear previous content
-                    movies.forEach(movie => {
-                        const movieItem = document.createElement('div');
-                        movieItem.classList.add('content-item');
-                        movieItem.innerHTML = `
+    }
+
+    // Move fetchAndDisplayMovies definition here
+    function fetchAndDisplayMovies(url, containerId) {
+        showLoadingSpinner(); // Show loading spinner
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const movies = data.results;
+                const container = document.getElementById(containerId);
+                container.innerHTML = ''; // Clear previous content
+                movies.forEach(movie => {
+                    const movieItem = document.createElement('div');
+                    movieItem.classList.add('content-item');
+                    movieItem.innerHTML = `
                             <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
                             <div class="content-info">
                                 <h3>${movie.title}</h3>
@@ -55,59 +79,71 @@ document.addEventListener('DOMContentLoaded', function() {
                                                                                         <p class="content-type">Movies</p>
 
                         `;
-        
-                        // Event listener for movie item click
-                        movieItem.addEventListener('click', () => {
-                            if (activeHoverInfo) {
-                                activeHoverInfo.style.transform = "translatex(100%)";
-                            }
-                            const hoverInfo = movieItem.querySelector('.hover-info');
-                            hoverInfo.style.transform = "translatex(-100%)";
-                            activeHoverInfo = hoverInfo;
-                        });
-        
-                        // Event listener for details button
-                        movieItem.querySelector('.details-button').addEventListener('click', (event) => {
-                            const movieId = event.target.getAttribute('data-movie-id');
-                            trackRecentlyWatched(movieId); // Track the movie when clicked
-                            window.location.href = `details.html?movieId=${movieId}`;
-                        });
-        
-                        container.appendChild(movieItem);
+
+                    // Event listener for movie item click
+                    movieItem.addEventListener('click', () => {
+                        if (activeHoverInfo) {
+                            activeHoverInfo.style.transform = "translatex(100%)";
+                        }
+                        const hoverInfo = movieItem.querySelector('.hover-info');
+                        hoverInfo.style.transform = "translatex(-100%)";
+                        activeHoverInfo = hoverInfo;
                     });
-        
-                    hideLoadingSpinner(); // Hide loading spinner
-                })
-                .catch(() => {
-                    hideLoadingSpinner(); // Hide loading spinner
-                    // window.location.href = `R/maintenance.html`;
+
+                    // Event listener for details button
+                    movieItem.querySelector('.details-button').addEventListener('click', (event) => {
+                        const movieId = event.target.getAttribute('data-movie-id');
+                        trackRecentlyWatched(movieId); // Track the movie when clicked
+                        window.location.href = `details.html?movieId=${movieId}`;
+                    });
+
+                    container.appendChild(movieItem);
                 });
-        }
-        
-        
 
-       
+                hideLoadingSpinner(); // Hide loading spinner
+                // Auto-remove loader after a delay
+                // Handle the loader fade-out
+setTimeout(() => {
+    if (welcomeScreen) {
+        welcomeScreen.classList.add('fade-out'); // Add fade-out class to loader
+        setTimeout(() => {
+            welcomeScreen.remove(); // Remove loader from DOM after fade-out
+        }, 1000); // Matches the CSS transition duration
+    }
+}, 2000); // Loader delay (4 seconds)
 
-// Fetch and display TV shows
-function fetchAndDisplayTVShows(url, containerId) {
-    showLoadingSpinner(); // Show loading spinner
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            const shows = data.results;
-            const container = document.getElementById(containerId);
-            container.innerHTML = ``; // Clear previous content
-            shows.forEach(show => {
-                const showItem = createMediaItem(show, 'tv');
-                container.appendChild(showItem);
+
+            })
+            .catch(() => {
+                hideLoadingSpinner(); // Hide loading spinner
+                // window.location.href = `R/maintenance.html`;
             });
-            hideLoadingSpinner(); // Hide loading spinner
-        })
-        .catch(() => {
-            hideLoadingSpinner(); // Hide loading spinner
-            // window.location.href = `R/maintenance.html`; 
-        });
-}
+    }
+
+
+
+
+
+    // Fetch and display TV shows
+    function fetchAndDisplayTVShows(url, containerId) {
+        showLoadingSpinner(); // Show loading spinner
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const shows = data.results;
+                const container = document.getElementById(containerId);
+                container.innerHTML = ``; // Clear previous content
+                shows.forEach(show => {
+                    const showItem = createMediaItem(show, 'tv');
+                    container.appendChild(showItem);
+                });
+                hideLoadingSpinner(); // Hide loading spinner
+            })
+            .catch(() => {
+                hideLoadingSpinner(); // Hide loading spinner
+                // window.location.href = `R/maintenance.html`; 
+            });
+    }
 
 
 
@@ -156,13 +192,13 @@ function fetchAndDisplayTVShows(url, containerId) {
             if (type === "movie") {
                 window.location.href = `details.html?movieId=${mediaId}`;
             } else {
-                window.location.href = `tv-show-details.html?tvId=${mediaId}`;                
+                window.location.href = `tv-show-details.html?tvId=${mediaId}`;
             }
         }
     });
 
 
-    
+
     function getUserCountry() {
         const user = firebase.auth().currentUser;
         if (user) {
@@ -180,7 +216,7 @@ function fetchAndDisplayTVShows(url, containerId) {
             return Promise.resolve(localStorage.getItem('country')); // Return from localStorage if not logged in
         }
     }
-    
+
     // Fetch and display content based on user's country
     getUserCountry().then(country => {
         const countryCode = country ? country.toUpperCase() : 'US'; // Default to US if no country found
@@ -192,9 +228,9 @@ function fetchAndDisplayTVShows(url, containerId) {
     }).catch(error => {
         console.error("Error fetching country:", error);
     });
-    
 
-    
+
+
 
     function fetchRandomHeroImage() {
         const urls = [
@@ -225,12 +261,12 @@ function fetchAndDisplayTVShows(url, containerId) {
         newImage.className = 'hero-image';
         newImage.style.backgroundImage = `url(${imageUrl})`;
         heroSection.appendChild(newImage);
-        
+
         // Triggering the fade-in effect
         setTimeout(() => {
             newImage.classList.add('active');
             currentImage.classList.remove('active');
-            
+
             // Remove the old image after the transition
             setTimeout(() => {
                 heroSection.removeChild(currentImage);
@@ -239,27 +275,27 @@ function fetchAndDisplayTVShows(url, containerId) {
     }
 
     function showLoadingSpinner() {
-        loadingSpinner.forEach(e=>{
-            e.style.display="block"
+        loadingSpinner.forEach(e => {
+            e.style.display = "block"
         })
     }
 
     function hideLoadingSpinner() {
-        loadingSpinner.forEach(e=>{
-            e.style.display="none"
+        loadingSpinner.forEach(e => {
+            e.style.display = "none"
         })
     }
-  
+
 
     // ------------------------------------
     // ------------crousel control-------------
     // ------------------------------------
-    
+
     function rightControl(crosuel_container) {
         const container = document.getElementById(crosuel_container);
         container.scrollBy({ left: 450, behavior: 'smooth' });
     }
-    
+
     function leftControl(crosuel_container) {
         const container = document.getElementById(crosuel_container);
         container.scrollBy({ left: -450, behavior: 'smooth' });
@@ -272,7 +308,7 @@ function fetchAndDisplayTVShows(url, containerId) {
     document.getElementById('new-releases-grid-right-control')?.addEventListener('click', function () {
         rightControl("new-releases-grid")
     });
-    
+
     document.getElementById('featured-tv-grid-left-control')?.addEventListener('click', function () {
         leftControl("featured-tv-grid")
     });
@@ -280,7 +316,7 @@ function fetchAndDisplayTVShows(url, containerId) {
     document.getElementById('featured-tv-grid-right-control')?.addEventListener('click', function () {
         rightControl("featured-tv-grid")
     });
-    
+
     document.getElementById('featured-grid-left-control')?.addEventListener('click', function () {
         leftControl("featured-grid")
     });
@@ -296,7 +332,7 @@ function fetchAndDisplayTVShows(url, containerId) {
     document.getElementById('trending-grid-right-control')?.addEventListener('click', function () {
         rightControl("trending-grid")
     });
-    
+
     document.getElementById('trending-tv-grid-left-control')?.addEventListener('click', function () {
         leftControl("trending-tv-grid")
     });
@@ -307,24 +343,24 @@ function fetchAndDisplayTVShows(url, containerId) {
 
 
     // Select the button
-const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
-// Show or hide the button based on scroll position
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 300) {
-    scrollToTopBtn.classList.add('show');
-  } else {
-    scrollToTopBtn.classList.remove('show');
-  }
-});
+    // Show or hide the button based on scroll position
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollToTopBtn.classList.add('show');
+        } else {
+            scrollToTopBtn.classList.remove('show');
+        }
+    });
 
-// Scroll to the top when the button is clicked
-scrollToTopBtn.addEventListener('click', () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-});
+    // Scroll to the top when the button is clicked
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 
 
 
@@ -332,11 +368,11 @@ scrollToTopBtn.addEventListener('click', () => {
     fetchAndDisplayMovies(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`, 'featured-grid');
     fetchAndDisplayMovies(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}`, 'trending-grid');
     fetchAndDisplayMovies(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`, 'new-releases-grid');
-    
+
     fetchRandomHeroImage();
     setInterval(fetchRandomHeroImage, 10000); // Change hero image every 10 seconds
 
 
-  
-    
+
+
 });
