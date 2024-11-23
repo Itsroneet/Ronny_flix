@@ -102,12 +102,28 @@
   <div id="server-selector " class="selector">
     <label for="provider-select" >Choose a server:</label>
     <select id="provider-select" class="select">
-        <option value="superembed">SuperEmbed</option>
-        <option value="autoembed">AutoEmbed</option>
-        <option value="embedsoap">EmbedSoap</option>
-        <option value="smashystream">SmashyStream</option>
-        <option value="trailer">Trailer</option>
-    </select>
+      <option value="vidsrc">VidSrc</option>
+      <option value="vidsrc2">VidSrc2</option>
+      <option value="vidsrcxyz">VidSrc XYZ</option>
+      <option value="anime">Anime</option>
+      <option value="superembed">SuperEmbed</option>
+      <option value="autoembed">AutoEmbed</option>
+      <option value="embedsoap">EmbedSoap</option>
+      <option value="smashystream">SmashyStream</option>
+      <option value="2animesub">2Anime Sub</option>
+      <option value="2embed">2Embed</option>
+      <option value="nontonGo">NontonGo</option>
+      <option value="vidsrcnl">VidSrc NL</option>
+      <option value="vidsrc.rip">VidSrc Rip</option>
+      <option value="vidbinge">VidBinge</option>
+      <option value="moviesapi">MoviesAPI</option>
+      <option value="moviee">Moviee</option>
+      <option value="multiembed">MultiEmbed</option>
+      <option value="embedsu">EmbedSu</option>
+      <option value="multiembedvip">MultiEmbed VIP</option>
+      <option value="vidsrcicu">VidSrc ICU</option>
+      <option value="trailer">Trailer</option>
+  </select>
 </div>
 
 <div id="season-selector " class="selector">
@@ -148,18 +164,61 @@
             <iframe id="trailer-video" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
-    <footer>
-
-      <h3>Copyright &copy; 2024 <a href="https://ronitbhandari.com.np/" target="_blank">Ronit Bhandari</a></h3>
-      <ul>
-      <a href="https://www.facebook.com/itsmeroneet/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-        <a href="https://www.instagram.com/itsme_roneet" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://ronitbhandari.com.np/" target="_blank"><i class="fa-solid fa-globe"></i></a>
-      </ul>
+    
+    <footer class="footer">
+      <div class="footer-content">
+        <!-- Logo and About -->
+        <div class="footer-about">
+          <h3>Ronny Flix</h3>
+          <p>
+            Ronny Flix does not host any content. All videos are provided by third-party services. Legal issues 
+            should be taken up with the file hosts and providers. Ronny Flix is not responsible for any media files 
+            shown by the video providers.
+          </p>
+          <div class="social-icons">
+            <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="icon"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+    
+        <!-- Quick Links -->
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/movies.html">Movies</a></li>
+            <li><a href="/tvshows.html">TV Shows</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+    
+        <!-- Newsletter -->
+        <div class="footer-newsletter">
+          <h4>Stay Updated</h4>
+          <p>Subscribe to our newsletter for the latest updates!</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email" required />
+            <button id="sumbit-btn" type="submit">Subscribe</button>
+            <button id="sumbit-btn-icon" type="submit"><i class="fa-regular fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    <div class="footer-separator"></div>
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p>&copy; 2024 Ronny Flix. All rights reserved.</p>
+      </div>
     </footer>
+
     <script src="assets/js/config.js"></script>
     <script src="assets/js/tv-show-details.js"></script>
     <script src="assets/js/common.js"></script>
 
+      <!-- Firebase 8.10 CDN -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </body>
 </html>

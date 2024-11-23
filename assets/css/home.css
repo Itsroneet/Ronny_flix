@@ -15,7 +15,7 @@
   background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 1s ease-in-out;
-  background-image: url(../img/NEPFLIX-logo.png);
+  background-image: url(../img/main-bg.jpg);
 }
 
 .hero-image.active {
@@ -70,10 +70,12 @@ main {
 }
 
 .content-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
+  display: flex;
+  width: 90vw;
+  overflow-x: scroll;
   gap: 20px;
-  max-width: 1200px;
   margin: 12px auto;
 }
 
@@ -145,9 +147,14 @@ main {
   transition: all 0.3s;
 }
 
-.content-grid .content-item:hover{
+.content-item{
+  min-width: 200px;
+  
+}
+
+.content-grid .content-item:hover {
   transition: all 0.3s;
-  scale:1.07;
+  scale:0.95;
 }
 
 .content-grid img {
@@ -212,6 +219,68 @@ left: 100%;
 .details-button:hover{
   scale: 1.1;
 }
+
+.content-main-grid{
+  position: relative;
+}
+
+.crousel-control{
+  position: absolute;
+  right: 1.2%;
+  top: 42%;
+  background: #00000078;
+  border: 1px solid white;
+  border-radius: 50%;
+  color: wheat;
+  display: grid !important ;
+  place-content: center center;
+  width: 15px;
+  height: 15px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 100;
+
+  &:hover{
+background: rgb(59, 59, 59);
+scale: 1.03;
+  }
+}
+
+.left{
+  left: 1.2%;
+}
+
+/* ------- scroll to top btn -------- */
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #e50914;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  padding: 10px 12px;
+  font-size: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translatex(90px);
+  z-index: 1000;
+}
+
+.scroll-to-top.show {
+  opacity: 1;
+  transform: translatex(0);
+}
+
+.scroll-to-top:hover {
+  background: #bf0810;
+}
+
+
 
 /* ---------------------------------
 -------------preloader---------------
@@ -286,8 +355,20 @@ left: 100%;
   .content-grid {
     width: 90%;
     margin: auto;
-  }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
+
+.content-item{
+  min-width: 100px;
+}
+
+.crousel-control{
+  display: none !important;
+}
+
+}
+
 
 @media screen and (max-width:560px) {
   #hero {
@@ -323,6 +404,10 @@ left: 100%;
 
   .content-grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .catagory-title{
+    font-size: 2rem;
   }
 
 }

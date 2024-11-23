@@ -90,42 +90,115 @@
     </div>
   </div>
 
-
+  <button id="scrollToTopBtn" class="scroll-to-top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+  
 
   <main id="mainarea">
     <h2 class="catagory-title">New Releases</h2>
     <div id="loading-spinner" class="loading-spinner"></div>
-    <div id="new-releases-grid" class="content-grid"></div>
+    <div class="content-main-grid">
+      <i id="new-releases-grid-left-control" class="left crousel-control fa-solid fa-angles-left"></i>
+      <i id="new-releases-grid-right-control" class="crousel-control fa-solid fa-angles-right" ></i>
+      <div id="new-releases-grid" class="content-grid">
+    </div>
+     
+    </div>
 
     <h2 class="catagory-title">featured series</h2>
     <div id="loading-spinner" class="loading-spinner"></div>
-    <div id="featured-tv-grid" class="content-grid"></div> <!-- New TV shows section -->
+    <div class="content-main-grid">
+      <i id="featured-tv-grid-left-control" class="left crousel-control fa-solid fa-angles-left"></i>
+      <i id="featured-tv-grid-right-control" class="crousel-control fa-solid fa-angles-right"></i>
+          <div id="featured-tv-grid" class="content-grid">
+      </div>
+    </div> <!-- New TV shows section -->
 
     <h2 class="catagory-title">Featured movies</h2>
     <div id="loading-spinner" class="loading-spinner"></div>
-    <div id="featured-grid" class="content-grid"></div>
+    <div class="content-main-grid">
+      <i id="featured-grid-left-control" class="left crousel-control fa-solid fa-angles-left"></i>
+      <i id="featured-grid-right-control" class="crousel-control fa-solid fa-angles-right"></i>
+          <div id="featured-grid" class="content-grid">
+      </div>
+    </div>
 
     <h2 class="catagory-title">Trending movies</h2>
     <div id="loading-spinner" class="loading-spinner"></div>
-    <div id="trending-grid" class="content-grid"></div>
+    <div class="content-main-grid">
+      <i id="trending-grid-left-control" class="left crousel-control fa-solid fa-angles-left"></i>
+      <i id="trending-grid-right-control" class="crousel-control fa-solid fa-angles-right"></i>
+          <div id="trending-grid" class="content-grid">
+      </div>
+  
+    </div>
 
     <h2 class="catagory-title">Trending series</h2>
     <div id="loading-spinner" class="loading-spinner"></div>
-    <div id="trending-tv-grid"class="content-grid"></div> <!-- New trending TV shows section -->
+    <div class="content-main-grid">
+      <i id="trending-tv-grid-left-control" class="left crousel-control fa-solid fa-angles-left"></i>
+      <i id="trending-tv-grid-right-control" class="crousel-control fa-solid fa-angles-right"></i>
+      <div id="trending-tv-grid"class="content-grid">
+      </div>
+    </div> <!-- New trending TV shows section -->
   </main>
 
-  <footer>
-
-    <h3>Copyright &copy; 2024 <a href="https://ronitbhandari.com.np/" target="_blank">Ronit Bhandari</a></h3>
-    <ul>
-      <a href="https://www.facebook.com/itsmeroneet/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-      <a href="https://www.instagram.com/itsme_roneet" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-      <a href="https://ronitbhandari.com.np/" target="_blank"><i class="fa-solid fa-globe"></i></a>
-    </ul>
+  <footer class="footer">
+    <div class="footer-content">
+      <!-- Logo and About -->
+      <div class="footer-about">
+        <h3>Ronny Flix</h3>
+        <p>
+          Ronny Flix does not host any content. All videos are provided by third-party services. Legal issues 
+          should be taken up with the file hosts and providers. Ronny Flix is not responsible for any media files 
+          shown by the video providers.
+        </p>
+        <div class="social-icons">
+          <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="icon"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="icon"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+  
+      <!-- Quick Links -->
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/movies.html">Movies</a></li>
+          <li><a href="/tvshows.html">TV Shows</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+  
+      <!-- Newsletter -->
+      <div class="footer-newsletter">
+        <h4>Stay Updated</h4>
+        <p>Subscribe to our newsletter for the latest updates!</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email" required />
+          <button id="sumbit-btn" type="submit">Subscribe</button>
+          <button id="sumbit-btn-icon" type="submit"><i class="fa-regular fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+  <div class="footer-separator"></div>
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <p>&copy; 2024 Ronny Flix. All rights reserved.</p>
+    </div>
   </footer>
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/home.js"></script>
+  
+  
+  
+  <script defer src="assets/js/home.js"></script>
+  <script  src="assets/js/config.js"></script>
   <script src="assets/js/common.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
   <!-- Firebase 8.10 CDN -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>

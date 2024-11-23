@@ -80,10 +80,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(() => {
                     hideLoadingSpinner(); // Hide loading spinner
-                    window.location.href = `R/maintenance.html`;
+                    // window.location.href = `R/maintenance.html`;
                 });
         }
         
+        
+
+       
+
 // Fetch and display TV shows
 function fetchAndDisplayTVShows(url, containerId) {
     showLoadingSpinner(); // Show loading spinner
@@ -92,7 +96,7 @@ function fetchAndDisplayTVShows(url, containerId) {
         .then(data => {
             const shows = data.results;
             const container = document.getElementById(containerId);
-            container.innerHTML = ''; // Clear previous content
+            container.innerHTML = ``; // Clear previous content
             shows.forEach(show => {
                 const showItem = createMediaItem(show, 'tv');
                 container.appendChild(showItem);
@@ -101,9 +105,13 @@ function fetchAndDisplayTVShows(url, containerId) {
         })
         .catch(() => {
             hideLoadingSpinner(); // Hide loading spinner
-            window.location.href = `R/maintenance.html`; 
+            // window.location.href = `R/maintenance.html`; 
         });
 }
+
+
+
+
 
 
     // Function to create media item (movies and TV shows)
@@ -243,12 +251,82 @@ function fetchAndDisplayTVShows(url, containerId) {
     }
   
 
-
-
-
-
-
+    // ------------------------------------
+    // ------------crousel control-------------
+    // ------------------------------------
     
+    function rightControl(crosuel_container) {
+        const container = document.getElementById(crosuel_container);
+        container.scrollBy({ left: 450, behavior: 'smooth' });
+    }
+    
+    function leftControl(crosuel_container) {
+        const container = document.getElementById(crosuel_container);
+        container.scrollBy({ left: -450, behavior: 'smooth' });
+    }
+
+    document.getElementById('new-releases-grid-left-control')?.addEventListener('click', function () {
+        leftControl("new-releases-grid")
+    });
+
+    document.getElementById('new-releases-grid-right-control')?.addEventListener('click', function () {
+        rightControl("new-releases-grid")
+    });
+    
+    document.getElementById('featured-tv-grid-left-control')?.addEventListener('click', function () {
+        leftControl("featured-tv-grid")
+    });
+
+    document.getElementById('featured-tv-grid-right-control')?.addEventListener('click', function () {
+        rightControl("featured-tv-grid")
+    });
+    
+    document.getElementById('featured-grid-left-control')?.addEventListener('click', function () {
+        leftControl("featured-grid")
+    });
+
+    document.getElementById('featured-grid-right-control')?.addEventListener('click', function () {
+        rightControl("featured-grid")
+    });
+
+    document.getElementById('trending-grid-left-control')?.addEventListener('click', function () {
+        leftControl("trending-grid")
+    });
+
+    document.getElementById('trending-grid-right-control')?.addEventListener('click', function () {
+        rightControl("trending-grid")
+    });
+    
+    document.getElementById('trending-tv-grid-left-control')?.addEventListener('click', function () {
+        leftControl("trending-tv-grid")
+    });
+
+    document.getElementById('trending-tv-grid-right-control')?.addEventListener('click', function () {
+        rightControl("trending-tv-grid")
+    });
+
+
+    // Select the button
+const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+// Show or hide the button based on scroll position
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 300) {
+    scrollToTopBtn.classList.add('show');
+  } else {
+    scrollToTopBtn.classList.remove('show');
+  }
+});
+
+// Scroll to the top when the button is clicked
+scrollToTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
+
 
 
     fetchAndDisplayMovies(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`, 'featured-grid');
@@ -257,4 +335,8 @@ function fetchAndDisplayTVShows(url, containerId) {
     
     fetchRandomHeroImage();
     setInterval(fetchRandomHeroImage, 10000); // Change hero image every 10 seconds
+
+
+  
+    
 });

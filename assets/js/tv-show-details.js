@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const iderror = document.querySelector('.movie-id');
 
 
+    // Initialize Firebase if it hasn't been initialized yet
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+    var auth = firebase.auth();
+    var db = firebase.firestore();
+
     const urlParams = new URLSearchParams(window.location.search);
     const tvId = urlParams.get('tvId');
 
@@ -35,12 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayTVShowDetails(show) {
+        // Set background image
         document.body.style.backgroundImage = `url('https://image.tmdb.org/t/p/original${show.backdrop_path}')`;
-
+    
         const genres = show.genres.map(genre => genre.name).join(', ');
         const cast = show.credits.cast.slice(0, 5).map(actor => actor.name).join(', ');
         const trailer = show.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-
+        const tvId = show.id;
+    
+        // HTML for the TV show details
         const tvShowDetailsHTML = `
             <div class="tv-show-info">
                 <img src="https://image.tmdb.org/t/p/w300${show.poster_path}" alt="${show.name}">
@@ -54,22 +64,30 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p><strong>Number of Seasons:</strong> ${show.number_of_seasons}</p>
                         <p><strong>Cast:</strong> ${cast}</p>
                     </div>
-                                    <a class="btn watch-now"  href="#superembed-player">Watch Now</a>
+                    <a class="btn watch-now" href="#superembed-player">Watch Now</a>
                     ${trailer ? `<button id="view-trailer" class="btn-1 btn">View Trailer</button>` : ''}
+                    <button id="add-favorite" class="btn btn-favorite"><i class="fa fa-heart"></i> Add to Favorites</button>
                 </div>
             </div>
         `;
+    
+        // Inject the HTML into the container
         tvShowDetailsContainer.innerHTML = tvShowDetailsHTML;
         tvShowDetailsContainer.classList.add('active');
-
+    
+        // Define the favorite button after the HTML is injected
+        const favoriteButton = document.getElementById('add-favorite');
+    
+        // Handle trailer button
         if (trailer) {
             document.getElementById('view-trailer').addEventListener('click', () => {
                 trailerVideo.src = `https://www.youtube.com/embed/${trailer.key}?autoplay=1`;
                 trailerModal.style.display = 'flex';
             });
         }
-
-        document.querySelector(".watch-now").addEventListener("click",function(){
+    
+        // "Watch Now" button functionality
+        document.querySelector(".watch-now").addEventListener("click", function () {
             document.getElementById("superembed-player").style.display = "flex";
             updateEndpoint();
             if (endpoint) {
@@ -77,10 +95,50 @@ document.addEventListener('DOMContentLoaded', function() {
                 videoFrame.style.display = 'block';
                 videoFramelogo.style.display = 'block';
             }
-        })
-
-        displayRelatedImages(show.images.backdrops);
+        });
+    
+        // Handle favorite button click
+        favoriteButton.addEventListener('click', function () {
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    db.collection('users').doc(user.uid).collection('favorites').doc(tvId.toString())
+                        .get()
+                        .then(docSnapshot => {
+                            if (docSnapshot.exists) {
+                                docSnapshot.ref.delete().then(() => {
+                                    showConfirmation('Removed from favorites!');
+                                    favoriteButton.innerHTML = '<i class="fa fa-heart"></i> Add to Favorites';
+                                });
+                            } else {
+                                const movieData = {
+                                    seriesID: tvId,
+                                    title: show.name,
+                                    type: "Series",
+                                    posterPath: show.poster_path,
+                                    addedAt: firebase.firestore.Timestamp.now(),
+                                };
+                                db.collection('users').doc(user.uid).collection('favorites').doc(tvId.toString())
+                                    .set(movieData)
+                                    .then(() => {
+                                        showConfirmation('Added to favorites!');
+                                        favoriteButton.innerHTML = '<i class="fa fa-heart"></i> Remove from Favorites';
+                                    });
+                            }
+                        });
+                } else {
+                    showLoginRequiredPopup();
+                }
+            });
+        });
+    
+        // Check if the show is already in favorites
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                checkIfFavorite(user);
+            }
+        });
     }
+    
 
     function displayRelatedImages(images) {
         let relatedImagesHTML = '<h3>Related Images</h3><div class="carousel">';
@@ -202,18 +260,69 @@ document.addEventListener('DOMContentLoaded', function() {
         const episodeNumber = episodeSelect.value;
         const seriesId = tmdbSeries.id;
 
-        if (provider === 'superembed') {
-            endpoint = `https://multiembed.mov/?video_id=${seriesId}&season=${seasonNumber}&episode=${episodeNumber}&tmdb=1`;
-        } else if (provider === 'autoembed') {
-            endpoint = `https://player.autoembed.cc/embed/tv/${seriesId}/${seasonNumber}/${episodeNumber}`;
-        } else if (provider === 'embedsoap') {
-            endpoint = `https://www.embedsoap.com/embed/series/${seriesId}/${seasonNumber}/${episodeNumber}`;
-        } else if (provider === 'smashystream') {
-            endpoint = `https://player.smashy.stream/series/${seriesId}/${seasonNumber}/${episodeNumber}`;
-        } else if (provider === 'trailer') {
-            endpoint = `https://www.youtube.com/embed/${trailer.key}?autoplay=1`;
+        if (provider === 'vidsrc') {
+            endpoint = `https://vidsrc.cc/v2/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?autoPlay=true`;
         }
+        else if (provider === 'vidsrc2') {
+            endpoint = `https://vidsrc2.to/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
+        }
+        else if (provider === 'superembed') {
+            endpoint = `https://multiembed.mov/?video_id=${seriesId}&tmdb=1&s=${seasonNumber}&e=${episodeNumber}`;
+        }
+        else if (provider === 'vidsrcxyz') {
+            endpoint = `https://vidsrc.xyz/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
+        }
+        else if (provider === 'embedsoap') {
+            endpoint = `https://www.embedsoap.com/embed/series/?id=${seriesId}&s=${seasonNumber}&e=${episodeNumber}`;
+        }
+        else if (provider === 'autoembed') {
+            endpoint = `https://player.autoembed.cc/embed/series/${seriesId}/${seasonNumber}-${episodeNumber}`;
+        }
+        else if (provider === 'smashystream') {
+            endpoint = `https://player.smashy.stream/series/${seriesId}/${seasonNumber}-${episodeNumber}`;
+        }
+        else if (provider === 'anime') {
+            endpoint = `https://anime.autoembed.cc/embed/${seriesId}-episode-${episodeNumber}`;
+        }
+        else if (provider === '2animesub') {
+            endpoint = `https://2anime.xyz/embed/${seriesId}-episode-${episodeNumber}`;
+        }
+        else if (provider === '2embed') {
+            endpoint = `https://www.2embed.cc/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
+        }
+        else if (provider === 'nontonGo') {
+            endpoint = `https://www.NontonGo.win/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
+        }
+        else if (provider === 'vidsrcnl') {
+            endpoint = `https://player.vidsrc.nl/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
+        }
+        else if (provider === 'vidsrc.rip') {
+            endpoint = `https://vidsrc.rip/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
+        }
+        else if (provider === 'vidbinge') {
+            endpoint = `https://vidbinge.dev/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
+        }
+        else if (provider === 'moviesapi') {
+            endpoint = `https://moviesapi.club/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
+        }
+        else if (provider === 'moviee') {
+            endpoint = `https://moviee.tv/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
+        }
+        else if (provider === 'multiembed') {
+            endpoint = `https://multiembed.mov/?video_id=${seriesId}&tmdb=1&s=${seasonNumber}&e=${episodeNumber}`;
+        }
+        else if (provider === 'embedsu') {
+            endpoint = `https://embed.su/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
+        }
+        else if (provider === 'multiembedvip') {
+            endpoint = `https://multiembed.mov/directstream.php?video_id=${seriesId}&tmdb=1&s=${seasonNumber}&e=${episodeNumber}`;
+        }
+        else if (provider === 'vidsrcicu') {
+            endpoint = `https://vidsrc.icu/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
+        }
+    
     }
+    
 
     playButton.addEventListener('click', function () {
         updateEndpoint();

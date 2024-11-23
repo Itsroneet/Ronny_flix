@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function hideLoadingSpinner() {
         loader.style.display = "none";
     }
-          
-            
- 
+
+
+
     // Fetch and display movie details
     function fetchMovieDetails() {
         showLoadingSpinner();
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById("superembed-player").style.display = "none";
             });
     }
- 
+
 
     function displayMovieDetails(movie) {
         document.body.style.backgroundImage = movie.backdrop_path
@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const trailer = movie.videos.results ? movie.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube') : null;
 
 
-           
-      
+
+
 
         const movieDetailsHTML = `
             <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
@@ -89,15 +89,79 @@ document.addEventListener('DOMContentLoaded', function () {
         // Function to set endpoint based on selected provider
         function updateEndpoint() {
             const provider = providerSelect.value;
-            if (provider === 'superembed') {
+
+
+            if (provider === 'vidsrc') {
+                endpoint = `https://vidsrc.cc/v2/embed/movie/${movie.id}?autoPlay=true`;
+            }
+            else if (provider === 'vidsrc2') {
+                endpoint = `https://vidsrc2.to/embed/movie/${movie.id}`;
+            }
+            else if (provider === 'superembed') {
                 endpoint = `https://multiembed.mov/?video_id=${movie.id}&tmdb=1`;
-            } else if (provider === 'autoembed') {
+            }
+            else if (provider === 'vidsrcxyz') {
+                endpoint = `https://vidsrc.xyz/embed/movie/${movie.id}`;
+            }
+            else if (provider === 'embedsoap') {
+                endpoint = `https://www.embedsoap.com/embed/movie/?id=${movie.id}`;
+            }
+            else if (provider === 'autoembed') {
                 endpoint = `https://player.autoembed.cc/embed/movie/${movie.id}`;
-            } else if (provider === 'embedsoap') {
-                endpoint = `https://www.embedsoap.com/embed/movie/${movie.id}`;
-            } else if (provider === 'smashystream') {
+            }
+            else if (provider === 'smashystream') {
                 endpoint = `https://player.smashy.stream/movie/${movie.id}`;
-            } else if (provider === 'trailer') {
+            }
+
+            else if (provider === 'anime') {
+                endpoint = `https://anime.autoembed.cc/embed/${movie.id}-episode-1`;
+            }
+            else if (provider === '2animesub') {
+                endpoint = `https://2anime.xyz/embed/${movie.id}-episode-1`;
+            }
+            else if (provider === '2embed') {
+                endpoint = `https://www.2embed.cc/embed/${movie.id}`;
+            }
+
+            else if (provider === 'nontonGo') {
+                endpoint = `https://www.NontonGo.win/embed/movie/${movie.id}`;
+            }
+            else if (provider === 'vidsrcnl') {
+                endpoint = `https://player.vidsrc.nl/embed/movie/${movie.id}`;
+            }
+
+            else if (provider === 'vidsrc.rip') {
+                endpoint = `https://vidsrc.rip/embed/movie/${movie.id}`;
+            }
+
+            else if (provider === 'vidbinge') {
+                endpoint = `https://vidbinge.dev/embed/movie/${movie.id}`;
+            }
+
+            else if (provider === 'moviesapi') {
+                endpoint = `https://moviesapi.club/movie/${movie.id}`;
+            }
+
+            else if (provider === 'moviee') {
+                endpoint = `https://moviee.tv/embed/movie/${movie.id}`;
+            }
+
+            else if (provider === 'multiembed') {
+                endpoint = `https://multiembed.mov/?video_id=${movie.id}&tmdb=1`;
+            }
+
+            else if (provider === 'embedsu') {
+                endpoint = `https://embed.su/embed/movie/${movie.id}`;
+            }
+
+            else if (provider === 'multiembedvip') {
+                endpoint = `https://multiembed.mov/directstream.php?video_id=${movie.id}&tmdb=1`;
+            }
+
+            else if (provider === 'vidsrcicu') {
+                endpoint = `https://vidsrc.icu/embed/movie/${movie.id}`;
+            }
+            else if (provider === 'trailer') {
                 endpoint = `https://www.youtube.com/embed/${trailer.key}?autoplay=1`;
             }
         }
@@ -121,8 +185,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-        
-        document.querySelector(".watch-now").addEventListener("click",function(){
+
+        document.querySelector(".watch-now").addEventListener("click", function () {
             document.getElementById("superembed-player").style.display = "flex";
             updateEndpoint();
             if (endpoint) {
@@ -233,6 +297,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 const movieData = {
                                     movieId: movie.id,
                                     title: movie.title,
+                                    type: Movie,
                                     posterPath: movie.poster_path,
                                     addedAt: firebase.firestore.Timestamp.now(),
                                 };
@@ -268,29 +333,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-   
+
     function displayRelatedImages(images) {
         let currentIndex = 0;
         const totalImages = Math.min(images.length, 10);
-    
+
         // Render small carousel
         let relatedImagesHTML = '<h3>Related Images</h3><div class="small-carousel-wrapper">';
         relatedImagesHTML += `
             <button class="carousel-control left small-carousel-control">&lsaquo;</button>
             <div class="small-carousel">
         `;
-        
+
         images.slice(0, totalImages).forEach((image, index) => {
             relatedImagesHTML += `<img class="small-carousel-image" src="https://image.tmdb.org/t/p/w300${image.file_path}" alt="Related Image" data-index="${index}">`;
         });
-    
+
         relatedImagesHTML += `
             </div>
             <button class="carousel-control right small-carousel-control">&rsaquo;</button>
         </div>`;
-        
+
         relatedImagesContainer.innerHTML = relatedImagesHTML;
-    
+
         // Render modal for big carousel
         const modalHTML = `
             <div id="imageModal" class="modal">
@@ -304,9 +369,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <button id="leftControl" class="carousel-control left">&lsaquo;</button>
                 <button id="rightControl" class="carousel-control right">&rsaquo;</button>
             </div>`;
-        
+
         document.body.insertAdjacentHTML('beforeend', modalHTML);
-    
+
         const modal = document.getElementById("imageModal");
         const modalImage = document.getElementById("modalImage");
         const closeModal = document.querySelector(".close");
@@ -317,20 +382,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const smallLeftControl = document.querySelector('.small-carousel-control.left');
         const smallRightControl = document.querySelector('.small-carousel-control.right');
         const smallCarouselImages = document.querySelectorAll('.small-carousel-image');
-    
+
         let scrollPosition = 0;
-    
+
         // Small carousel scroll buttons
         smallRightControl.addEventListener('click', () => {
             scrollPosition += 150;
             smallCarousel.scrollTo({ left: scrollPosition, behavior: 'smooth' });
         });
-        
+
         smallLeftControl.addEventListener('click', () => {
             scrollPosition -= 150;
             smallCarousel.scrollTo({ left: scrollPosition, behavior: 'smooth' });
         });
-    
+
         // Show big carousel (modal) when clicking on small carousel image
         smallCarouselImages.forEach((imageElement) => {
             imageElement.addEventListener('click', (event) => {
@@ -338,7 +403,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 showBigCarousel(parseInt(index, 10));
             });
         });
-    
+
         // Function to show big carousel
         function showBigCarousel(index) {
             currentIndex = index;
@@ -347,20 +412,20 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelector(".nav").style.display = "none"; // Hide nav bar
             disableScroll();
         }
-    
+
         // Function to update the big carousel image
         function updateBigCarouselImage() {
             modalImage.src = `https://image.tmdb.org/t/p/original${images[currentIndex].file_path}`;
             currentImageIndexElem.textContent = currentIndex + 1;
         }
-    
+
         // Close the modal
         closeModal.addEventListener('click', () => {
             modal.style.display = "none";
             document.querySelector(".nav").style.display = "flex"; // Show nav bar
             enableScroll();
         });
-    
+
         // Left control (Previous image)
         leftControl.addEventListener('click', () => {
             if (currentIndex === 0) {
@@ -370,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             updateBigCarouselImage();
         });
-    
+
         // Right control (Next image)
         rightControl.addEventListener('click', () => {
             if (currentIndex === totalImages - 1) {
@@ -380,19 +445,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             updateBigCarouselImage();
         });
-    
+
         // Disable page scroll when modal is open
         function disableScroll() {
             document.body.style.overflow = 'hidden';
         }
-    
+
         // Enable page scroll when modal is closed
         function enableScroll() {
             document.body.style.overflow = '';
         }
     }
-        
-     
+
+
 
     closeTrailerBtn.onclick = function () {
         trailerModal.style.display = 'none';
