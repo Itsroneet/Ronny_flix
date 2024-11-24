@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentPage = 1;
     let totalPages = 1;
 
+  
     function fetchMovies(page) {
         fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${page}`)
             .then(response => response.json())
@@ -12,10 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 displayMovies(data.results);
                 renderPagination(page);
             })
+            .catch(() => {
+                window.location.href = `R/error.html`;
+            });
           
     }
+  
 
     function displayMovies(movies) {
+       try {
         let moviesHTML = '';
         movies.forEach(movie => {
             moviesHTML += `
@@ -28,6 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         });
         moviesContainer.innerHTML = moviesHTML;
+       } catch (error) {
+        
+
+       }
     }
 
     function renderPagination(page) {

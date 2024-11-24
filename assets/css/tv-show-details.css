@@ -209,9 +209,10 @@ main {
     gap: 10px;
     justify-content: center;
     align-items: center;
-    background: #131313;
+    /* background: #131313; */
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
+    border: 1px solid red;
 }
 
 
@@ -222,7 +223,6 @@ main {
     flex-direction: column;
     padding: 20px;
     margin: auto;
-    background: #131313;
     border-radius: 10px;
     gap: 15px;
 }

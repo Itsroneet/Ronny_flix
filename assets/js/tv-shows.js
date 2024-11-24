@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.querySelector('.background-image').style.backgroundImage = backgroundImages;
             })
             .catch(() => {
-                console.error('Failed to fetch background images.');
+                console.log("error found fetchRandomBackgroundImages")
             });
     }
 
@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fetchYouMayLikeTVShows();
             })
             .catch(() => {
-                alert('Failed to fetch data. Please try again later.');
+                console.log("error found fetchTVShows ")
+                window.location.href = `R/error.html`;
             });
     }
 

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Ronny Flix</title>
+  <link rel="stylesheet" href="assets/css/about.css">
+  <link rel="stylesheet" href="assets/css/common.css">
+  <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1>Welcome to <span class="brand">Ronny Flix</span></h1>
+      <p>Your Ultimate Streaming Destination</p>
+      <a href="#features-section" class="cta-button">Explore Features</a>
+    </div>
+  </header>
+  
+
+  <main class="main-content">
+    <section class="features-section">
+      <h2>Why Choose Us?</h2>
+      <div class="features-grid">
+        <!-- Existing Features -->
+        <div class="feature-card">
+          <h3>📺 Watch Anything</h3>
+          <p>Access a vast collection of movies and TV shows across all genres.</p>
+        </div>
+        <div class="feature-card">
+          <h3>💸 Free Streaming</h3>
+          <p>Stream unlimited content without paying a subscription fee.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🔗 10+ Servers</h3>
+          <p>Seamless streaming with multiple active servers. (Some may contain ads.)</p>
+        </div>
+        <div class="feature-card">
+          <h3>✨ User-Friendly UI</h3>
+          <p>A simple, intuitive design for effortless navigation.</p>
+        </div>
+        <div class="feature-card">
+          <h3>📰 Stay Updated</h3>
+          <p>Subscribe to our free newsletter for the latest updates and recommendations.</p>
+        </div>
+    
+        <!-- Additional Features -->
+        <div class="feature-card">
+          <h3>🔒 Safe & Secure</h3>
+          <p>Enjoy a secure platform with no risk of malware or intrusive ads.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🌍 Global Access</h3>
+          <p>Watch your favorite shows and movies from anywhere in the world.</p>
+        </div>
+        <div class="feature-card">
+          <h3>📱 Mobile Optimized</h3>
+          <p>Stream seamlessly on mobile devices with an optimized interface.</p>
+        </div>
+        <div class="feature-card">
+          <h3>⚡ Fast Loading</h3>
+          <p>Experience buffer-free streaming with fast and reliable servers.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🎞️ High-Quality Content</h3>
+          <p>Stream in HD and enjoy crystal-clear video quality.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🔎 Smart Search</h3>
+          <p>Find exactly what you're looking for with our advanced search tool.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="upcoming-section">
+      <h2>Coming Soon</h2>
+      <ul>
+        <!-- Existing Features -->
+        <li>
+          <div>🔑 <strong>Login/Register:</strong></div> 
+          Create a personalized account to save favorites.
+        </li>
+        <li>
+          <div>📂 <strong>User Dashboard:</strong></div> 
+          Manage your account, recently watched, and favorite shows.
+        </li>
+        <li>
+          <div>🚀 <strong>Enhanced Features:</strong></div> 
+          Regular updates for a better streaming experience.
+        </li>
+    
+        <!-- Additional Features -->
+        <li>
+          <div>📅 <strong>Watchlist Feature:</strong></div> 
+          Organize your favorite movies and TV shows into a custom watchlist.
+        </li>
+        <li>
+          <div>🌟 <strong>Ratings & Reviews:</strong></div> 
+          Rate movies and TV shows and share your feedback with the community.
+        </li>
+        <li>
+          <div>🔔 <strong>Notifications:</strong></div> 
+          Get notified about new releases, updates, and recommendations.
+        </li>
+        <li>
+          <div>👥 <strong>Community Features:</strong></div> 
+          Interact with other users and discover trending content.
+        </li>
+        <li>
+          <div>💬 <strong>Comment Sections:</strong></div> 
+          Share your thoughts and discuss episodes with fellow viewers.
+        </li>
+        <li>
+          <div>🎭 <strong>Genre Filters:</strong></div> 
+          Discover content tailored to your preferences with advanced filtering options.
+        </li>
+        <li>
+          <div>📊 <strong>Viewing Stats:</strong></div> 
+          Track your watch history and binge-watching trends.
+        </li>
+      </ul>
+    </section>
+    
+
+    <section class="cta-section">
+      <h2>Join the Ronny Flix Family</h2>
+      <p>Enjoy endless entertainment. Start streaming now!</p>
+      <a href="/" id="startStreamingBtn" class="cta-button">Explore Features</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <!-- will generate using  js  -->
+    </footer>
+
+  <script >
+// Select all elements to animate
+const animatedElements = document.querySelectorAll(
+  '.feature-card, .upcoming-section ul li, .cta-section'
+);
+
+// Function to add the 'show-on-scroll' class
+const animateOnScroll = () => {
+  const triggerBottom = window.innerHeight * 0.85; // 85% viewport height
+  animatedElements.forEach((element) => {
+    const elementTop = element.getBoundingClientRect().top;
+    if (elementTop < triggerBottom) {
+      element.classList.add('show-on-scroll'); // Add class when in view
+    }
+  });
+};
+
+// Trigger the animation on load and scroll
+animateOnScroll();
+window.addEventListener('scroll', animateOnScroll);
+
+
+
+  </script>
+  <script src="assets/js/common.js"></script>
+</body>
+</html>

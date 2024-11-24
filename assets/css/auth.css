@@ -70,7 +70,7 @@ input {
     outline: none;
     background-color: #00000065 ;
   }
-
+  
   &::placeholder{
     color: white;
   }
@@ -102,15 +102,16 @@ h2{
 }
 
 .btn2 {
-  display: block;
-  color: blue;
-  padding: 10px;
-  border: 1px solid blue;
-  border-radius: 30px;
-  cursor: pointer;
-  width: 100%;
-  position: relative;
-  text-decoration: none;
+      display: block;
+      color: white;
+      padding: 10px;
+      border: 1px solid red;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      position: relative;
+      text-decoration: none;
+  
 }
 
 .btn2:hover {

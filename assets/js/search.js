@@ -1,12 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
     const resultsContainer = document.getElementById('results-container');
+    const querycontainer = document.getElementById('querybox');
 
+    
     // Get the query parameter from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('query');
-
+    
     if (query) {
         fetchSearchResults(query);
+    }
+
+    querycontainer.innerHTML= query
+
+
+    function showerror(error) {
+        let errorcontainer = document.createElement("div");
+    errorcontainer.classList.add("error")
+    errorcontainer.innerHTML = error
+    resultsContainer.append(errorcontainer)
     }
 
     // Fetch search results from TMDB API (for both movies and TV shows)
@@ -17,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 displaySearchResults(data.results);
             })
             .catch(() => {
-                alert('Failed to fetch data. Please try again later.');
+                showerror('Failed to fetch data. Please try again later.');
             });
     }
 
@@ -80,7 +92,6 @@ if (mediaType === 'movie') {
         });
     }
 });
-
 
 
 

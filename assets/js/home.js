@@ -13,28 +13,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-// JavaScript for managing the welcome screen and loader
-const welcomeScreen = document.getElementById('welcome-screen');
+    // JavaScript for managing the welcome screen and loader
+    const welcomeScreen = document.getElementById('welcome-screen');
 
-// Check if the user has already visited
-const hasVisited = sessionStorage.getItem('ronnyflixVisited');
+    // Check if the user has already visited
+    const hasVisited = sessionStorage.getItem('ronnyflixVisited');
 
-if (!hasVisited) {
-    // Show welcome screen
-    welcomeScreen.classList.remove('hidden');
+    if (!hasVisited) {
+        // Show welcome screen
+        welcomeScreen.classList.remove('hidden');
 
-    // Fade out the welcome screen after 3 seconds
-    setTimeout(() => {
-        welcomeScreen.classList.add('fade-out'); // Add fade-out class
+        // Fade out the welcome screen after 3 seconds
         setTimeout(() => {
-            welcomeScreen.classList.add('hidden'); // Fully hide welcome screen
-            sessionStorage.setItem('ronnyflixVisited', 'true'); // Mark as visited
-        }, 1000); // Matches the CSS transition duration
-    }, 3000); // 3-second delay
-} else {
-    // Skip welcome screen
-    welcomeScreen.remove();
-}
+            welcomeScreen.classList.add('fade-out'); // Add fade-out class
+            setTimeout(() => {
+                welcomeScreen.classList.add('hidden'); // Fully hide welcome screen
+                sessionStorage.setItem('ronnyflixVisited', 'true'); // Mark as visited
+            }, 1000); // Matches the CSS transition duration
+        }, 3000); // 3-second delay
+    } else {
+        // Skip welcome screen
+        welcomeScreen.remove();
+    }
 
 
 
@@ -102,23 +102,10 @@ if (!hasVisited) {
 
                 hideLoadingSpinner(); // Hide loading spinner
 
-                // Auto-remove loader after a delay
-                // Handle the loader fade-out
-setTimeout(() => {
-    if (welcomeScreen) {
-        welcomeScreen.classList.add('fade-out'); // Add fade-out class to loader
-        setTimeout(() => {
-            welcomeScreen.remove(); // Remove loader from DOM after fade-out
-        }, 1000); // Matches the CSS transition duration
-    }
-}, 2000); // Loader delay (2 seconds)
-
-
-
             })
             .catch(() => {
                 hideLoadingSpinner(); // Hide loading spinner
-                // window.location.href = `R/maintenance.html`;
+                // window.location.href = `R/error.html`;
             });
     }
 
@@ -286,7 +273,8 @@ setTimeout(() => {
         loadingSpinner.forEach(e => {
             e.style.display = "none"
         })
-    }
+
+        }
 
 
     // ------------------------------------

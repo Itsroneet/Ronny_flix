@@ -21,16 +21,29 @@
         </a>
 
         <div class="nav-items">
-          <ul class="mobile-menu ">
-      <div class="momenutop">
-        <i class="fa-solid fa-xmark" id="mobile-menu-close"></i>
-      </div>
-            <li><a href="/">home</a></li>
+          <ul class="mobile-menu">
+            <div class="momenutop">
+              <i class="fa-solid fa-xmark" id="mobile-menu-close"></i>
+            </div>
+            <li><a href="/" class="active">Home</a></li>
             <li><a href="#" class="active">TV Shows</a></li>
-            <li><a href='/movies.html'>Movies</a></li>
-            <li><a href="auth/login.html">Login</a></li>
+            <li><a href="/movies.html">Movies</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropbtn">More</a>
+              <div class="dropdown-content">
+                <a href="auth/login.html">Login</a>
+                <a href="/about.html">About Us</a>
+                <a href="/contact.html">Contact Us</a>
+              </div>
+            </li>
+           <li class="mobile-moremenu"><a href="auth/login.html">Login</a></li> 
+            <li class="mobile-moremenu"><a href="/about.html">About Us</a></li>
+           <li class="mobile-moremenu"> <a href="/contact.html">Contact Us</a></li>
           </ul>
         </div>
+  
+
+
         <div class="nav-btn">
           <div id="search-bar">
             <div class="searchBox">
@@ -108,51 +121,8 @@
     </main>
    
     <footer class="footer">
-      <div class="footer-content">
-        <!-- Logo and About -->
-        <div class="footer-about">
-          <h3>Ronny Flix</h3>
-          <p>
-            Ronny Flix does not host any content. All videos are provided by third-party services. Legal issues 
-            should be taken up with the file hosts and providers. Ronny Flix is not responsible for any media files 
-            shown by the video providers.
-          </p>
-          <div class="social-icons">
-            <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="icon"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="icon"><i class="fab fa-youtube"></i></a>
-          </div>
-        </div>
-    
-        <!-- Quick Links -->
-        <div class="footer-links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/movies.html">Movies</a></li>
-            <li><a href="/tvshows.html">TV Shows</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
-    
-        <!-- Newsletter -->
-        <div class="footer-newsletter">
-          <h4>Stay Updated</h4>
-          <p>Subscribe to our newsletter for the latest updates!</p>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Enter your email" required />
-            <button id="sumbit-btn" type="submit">Subscribe</button>
-            <button id="sumbit-btn-icon" type="submit"><i class="fa-regular fa-paper-plane"></i></button>
-          </form>
-        </div>
-      </div>
-    <div class="footer-separator"></div>
-      <!-- Footer Bottom -->
-      <div class="footer-bottom">
-        <p>&copy; 2024 Ronny Flix. All rights reserved.</p>
-      </div>
-    </footer>
+      <!-- will generate using  js  -->
+      </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

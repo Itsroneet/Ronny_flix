@@ -19,9 +19,30 @@ body {
 
 #search-results h2 {
   margin-bottom: 1rem;
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    background: #000000a3;
+    padding: 10px;
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+}
+
+#querybox{
   color: red;
+  font-style: italic;
+}
+
+.error{
+  margin: auto;
+  margin-bottom: 1rem;
+  color: white;
   text-align: center;
   font-size: 2rem;
+  background: #ff000070;
+  padding: 10px;
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
 }
 
 #results-container {
@@ -79,6 +100,11 @@ body {
 }
 
 @media screen and (max-width: 450px) {
+
+  #search-results h2 {
+      font-size: 1.2rem;
+      }
+
     .search-result-item{
         height: 120px;
     }
@@ -91,4 +117,9 @@ body {
   }
   .search-result-item h3 {
 font-size: .7rem;  }
+
+.error{
+  font-size: 1.2rem;
+}
+
 }
