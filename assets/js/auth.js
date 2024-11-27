@@ -4,6 +4,12 @@ var auth = firebase.auth();
 var db = firebase.firestore();
 
 
+auth.onAuthStateChanged((user) => {
+          if (user) {
+            window.location.href = "../user/Dashboard/";        }
+    } 
+);
+
 // Password visibility toggle function
 function togglePasswordVisibility(inputId, toggleId) {
     var inputField = document.getElementById(inputId);
@@ -56,18 +62,18 @@ try {
                                 if (doc.exists) {
                                     const userData = doc.data();
                                     const userRole = userData.role;
- 
-                                        Swal.fire({
-                                            title: "Successfully logged in",
-                                            text: "Redirecting to Dashboard...",
-                                            icon: "success",
-                                            timer: 3000,
-                                            showConfirmButton: false,
-                                        });
-                                        setTimeout(() => {
-                                            window.location.href = "../user/Dashboard/";
-                                        }, 1500);
-                                    
+
+                                    Swal.fire({
+                                        title: "Successfully logged in",
+                                        text: "Redirecting to Dashboard...",
+                                        icon: "success",
+                                        timer: 3000,
+                                        showConfirmButton: false,
+                                    });
+                                    setTimeout(() => {
+                                        window.location.href = "../user/Dashboard/";
+                                    }, 1500);
+
                                 } else {
                                     hideloader();
                                     displayMessage('.error-msg', "No user data found!");
@@ -120,37 +126,37 @@ try {
                 user.updateProfile({
                     displayName: name
                 })
-                .then(function () {
-                    // Send email verification
-                    user.sendEmailVerification()
-                        .then(function () {
-                            hideloader();
-                            displayMessage('.success-msg', "Account created! Please verify your email.");
-                        })
-                        .catch(function (error) {
-                            hideloader();
-                            displayMessage('.error-msg', "Error sending verification email.");
-                        });
-
-                    // Save user data to Firestore
-                    db.collection("users").doc(user.uid).set({
-                        name: name,
-                        email: email,
-                        role: "user"  // Default role for new users
-                    })
                     .then(function () {
-                        sessionStorage.setItem('userEmail', email);
-                        signupForm.reset();
+                        // Send email verification
+                        user.sendEmailVerification()
+                            .then(function () {
+                                hideloader();
+                                displayMessage('.success-msg', "Account created! Please verify your email.");
+                            })
+                            .catch(function (error) {
+                                hideloader();
+                                displayMessage('.error-msg', "Error sending verification email.");
+                            });
+
+                        // Save user data to Firestore
+                        db.collection("users").doc(user.uid).set({
+                            name: name,
+                            email: email,
+                            role: "user"  // Default role for new users
+                        })
+                            .then(function () {
+                                sessionStorage.setItem('userEmail', email);
+                                signupForm.reset();
+                            })
+                            .catch(function (error) {
+                                hideloader();
+                                displayMessage('.error-msg', error.message);
+                            });
                     })
                     .catch(function (error) {
                         hideloader();
-                        displayMessage('.error-msg', error.message);
+                        displayMessage('.error-msg', "Error updating profile: " + error.message);
                     });
-                })
-                .catch(function (error) {
-                    hideloader();
-                    displayMessage('.error-msg', "Error updating profile: " + error.message);
-                });
             })
             .catch(function (error) {
                 hideloader();
@@ -241,7 +247,7 @@ try {
             .then(function (result) {
                 const user = result.user;
                 console.log("User Info:", user);
-    
+
                 // Check if the user exists in Firestore
                 db.collection("users").doc(user.uid).get()
                     .then(function (doc) {
@@ -252,7 +258,7 @@ try {
                                 text: `Successfully signed in as ${user.displayName}.`,
                                 icon: "success",
                             });
-    
+
                             // Redirect based on user role or other logic
                             window.location.href = "../user/Dashboard/";  // Update as per your app
                         } else {
@@ -290,9 +296,9 @@ try {
                 });
             });
     });
-    
+
 } catch (error) {
-    
+
 }
 // Function to Create Account with Google Profile
 function createAccount(user) {
@@ -303,24 +309,24 @@ function createAccount(user) {
         role: "user",            // Default role
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     })
-    .then(function () {
-        Swal.fire({
-            title: "Account Created!",
-            text: "Your account has been successfully created.",
-            icon: "success",
-        });
+        .then(function () {
+            Swal.fire({
+                title: "Account Created!",
+                text: "Your account has been successfully created.",
+                icon: "success",
+            });
 
-        // Redirect to user dashboard or another page
-        window.location.href = "../user/Dashboard/";  // Update URL as needed
-    })
-    .catch(function (error) {
-        console.error("Error creating user in Firestore:", error.message);
-        Swal.fire({
-            title: "Error",
-            text: error.message,
-            icon: "error",
+            // Redirect to user dashboard or another page
+            window.location.href = "../user/Dashboard/";  // Update URL as needed
+        })
+        .catch(function (error) {
+            console.error("Error creating user in Firestore:", error.message);
+            Swal.fire({
+                title: "Error",
+                text: error.message,
+                icon: "error",
+            });
         });
-    });
 }
 
 // Google Sign-Up Button Event
