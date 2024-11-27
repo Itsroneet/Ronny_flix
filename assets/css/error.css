@@ -20,6 +20,11 @@ main h2{
     font-size: 8rem;
 }
 
+#Unauthorized-text{
+    font-size: 5rem;
+}
+
+
 main p{
     text-transform: capitalize;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -46,5 +51,13 @@ main button{
 
 
 
+@media only screen and (max-width: 550px) {
+    #Unauthorized-text{
+        font-size: 3rem;
+    }
 
+    main p {
+        font-size: .9rem;
+    }
+}
   

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Ronny Flix</title>
+    <link rel="shortcut icon" href="../assets/img/favicon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/dashboard.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+
+<body>
+
+    
+
+  
+
+
+
+    <main>
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="/assets/img/logo.png" alt="">
+                <i class="fa-solid fa-bars" id="mobile-nav-open"></i>
+
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" id="dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="settings.html" id="settings" ><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="recently-watched.html" id="recently-watched"><i class="fas fa-history"></i> Recently
+                        Watched</a></li>
+                <li><a href="#" id="favourites"><i class="fas fa-heart"></i> Favourites</a></li>
+                <li><a href="/"><i class="fas fa-home"></i> Back to Home</a></li>
+                <li><a href="#" id="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+
+    
+        
+      <div class="msg">
+
+        <div class="unauthorized">
+            <!-- will generate using  js  -->
+        </div>
+
+        <div class="loader">
+            <h2>Please wait ...</h2>
+        </div>
+      </div>
+    
+
+        <div class="content">
+
+
+            <div class="content-header">
+                <h1>Welcome, <span id="user-name">Loading...</span>!</h1>
+                <p>Your personalized dashboard is ready.</p>
+            </div>
+            
+          
+            
+            <div class="content-body">
+                <!-- Quick Stats Section -->
+                <div class="stats">
+                    <div class="stat-card">
+                        <h3>Watched Movies</h3>
+                        <p id="watched-movies">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Favorites</h3>
+                        <p id="fav-movies">0</p>
+                    </div>
+                </div>
+                    <div class="stat-card">
+                        <h3>Account Status</h3>
+                        <p>Active</p>
+                    </div>
+                </div>
+    
+                <!-- Recent Activity Section -->
+                <div class="recent-activity">
+                    <h2>Recently Watched</h2>
+                    <ul id="recently-watched-list"></ul>
+                </div>
+
+             
+    
+                <!-- Quick Links Section -->
+                <div class="quick-links">
+                    <h2>Quick Links</h2>
+                    <a href="settings.html" class="btn">Go to Profile</a>
+                    <a href="settings.html" class="btn">Update Settings</a>
+                    <a href="favourites.html" class="btn">View Favourites</a>
+                </div>
+                
+                <footer class="footer">
+                    <!-- will generate using  js  -->
+                </footer>
+                
+            </div>
+        </div>
+        </main>
+    
+    
+
+    <script type="module" src="/assets/js/common.js"></script>
+    <script type="module" src="/assets/js/dashboard/dashboard-common.js"></script>
+    <script defer src="/assets/js/dashboard/dashboard.js"></script>
+    <script src="/assets/js/config.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+</body>
+
+</html>

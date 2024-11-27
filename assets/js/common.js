@@ -1,5 +1,49 @@
 
 
+  
+// ----------------------------------------------
+// ----------  firebase stuffs   -----------------------
+// ----------------------------------------------
+  
+try {
+
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+try {
+  // Listen for authentication state changes
+auth.onAuthStateChanged((user) => {
+  const loginLinks = document.querySelectorAll('a[href="auth/login.html"]');
+  if (user) {
+    // User is logged in, replace "Login" with "Dashboard"
+    loginLinks.forEach(link => {
+      link.href = "..//user/Dashboard/";
+      link.textContent = "Dashboard";
+    });
+  } else {
+    // User is not logged in, keep "Login"
+    loginLinks.forEach(link => {
+      link.href = "../auth/login.html";
+      link.textContent = "Login";
+    });
+  }
+});
+} catch (error) {
+  console.error("Error Updating links")
+  
+}
+
+
+} catch (error) {
+  console.error("firebase error")
+}
+
+
+
+
 
 // ----------------------------------------------
 // ----------  search js   -----------------------
@@ -38,11 +82,14 @@ const searchInput = document.getElementById('search-input');
 
 
 
+
+
 // ----------------------------------------------
 // ----------  Footer html   -----------------------
 // ----------------------------------------------
 
-let footer = document.querySelector(".footer")
+try {
+  let footer = document.querySelector(".footer")
 
 
 footer.innerHTML=`<div class="footer-content">
@@ -90,12 +137,16 @@ footer.innerHTML=`<div class="footer-content">
     <div class="footer-bottom">
       <p>&copy; 2024 Ronny Flix. All rights reserved.</p>
     </div>`
+} catch (error) {
+  
+}
 
 // ----------------------------------------------
 // ----------  Newsletter   -----------------------
 // ----------------------------------------------
 
-const Newsletterform = document.querySelector('.newsletter-form');
+try {
+  const Newsletterform = document.querySelector('.newsletter-form');
 
     // Handle Enter key press
     Newsletterform.addEventListener('submit', (e) => {
@@ -111,6 +162,9 @@ const Newsletterform = document.querySelector('.newsletter-form');
       Newsletterform.reset();
     });
 
+} catch (error) {
+  
+}
 
 
     // ----------------------------------------------

@@ -15,6 +15,66 @@ body {
 
 
 /* ---------------------------------
+-------------unauthorized---------------
+--------------------------------- */
+
+.unauthorized-container{
+  min-height:50vh;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  margin: auto;
+  margin-top: 80px;
+  max-width: 80vw;
+
+}
+
+#Unauthorized-text{
+  font-size: 5rem;
+}
+
+
+.unauthorized-container p{
+  text-transform: capitalize;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.unauthorized-container a {
+  text-decoration: none;
+  width: fit-content;
+    margin: auto;
+}
+
+.unauthorized-container button{
+  background: red;
+  color: white;
+  margin-top: 15px;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  background: linear-gradient(180deg , red,rgb(94, 10, 10));
+  
+  &:hover{
+      background: linear-gradient(0deg , red,rgb(94, 10, 10));
+  }
+}
+
+
+
+@media only screen and (max-width: 550px) {
+  #Unauthorized-text{
+      font-size: 3rem;
+  }
+
+  .unauthorized-container p {
+      font-size: .9rem;
+  }
+}
+
+
+
+/* ---------------------------------
 -------------error---------------
 --------------------------------- */
 .movie-id {

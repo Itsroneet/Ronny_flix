@@ -12,20 +12,102 @@ body {
     background: #f8f8f8 !important;
   }
   
-  header {
-    text-align: center;
-    padding: 50px 20px;
-    background: #e50914;
-    color: white;
+/* Header Section */
+.header {
+  background: linear-gradient(135deg, #e53935, #b71c1c); /* Red gradient background */
+  color: #fff;
+  text-align: center;
+  padding: 100px 20px; /* Increased padding for better visual spacing */
+  position: relative;
+  overflow: hidden;
+}
+
+.header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.header h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.header .brand {
+  color: #ffd6d6;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.header p {
+  font-size: 1.5rem;
+  margin-top: 15px;
+  font-weight: 400;
+  color: #ffd6d6;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 15px 35px;
+  background-color: #ffd6d6;
+  color: #e53935;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #e53935;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
   }
-  
-  header h1 {
-    font-size: 36px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  header p {
-    font-size: 16px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
   }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
   
   /* Contact Container */
   .contact-container {

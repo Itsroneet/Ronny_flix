@@ -6,11 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let activeHoverInfo = null; // Variable to track the active hover info
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    var auth = firebase.auth();
-    var db = firebase.firestore();
-
 
 
     // JavaScript for managing the welcome screen and loader
@@ -38,22 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-    // Function to track recently watched movies
-    function trackRecentlyWatched(movieId) {
-        const user = firebase.auth().currentUser; // Get the current user
-
-        if (user) {
-            const userId = user.uid; // Get the current user's UID
-            db.collection("users").doc(userId).update({
-                recentlyWatched: firebase.firestore.FieldValue.arrayUnion(movieId)
-            }).catch(error => {
-                console.error("Error adding movie to recently watched:", error);
-            });
-        }
-    }
-
-    // Move fetchAndDisplayMovies definition here
+   // Move fetchAndDisplayMovies definition here
     function fetchAndDisplayMovies(url, containerId) {
         showLoadingSpinner(); // Show loading spinner
         fetch(url)
@@ -92,8 +72,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Event listener for details button
                     movieItem.querySelector('.details-button').addEventListener('click', (event) => {
-                        const movieId = event.target.getAttribute('data-movie-id');
-                        trackRecentlyWatched(movieId); // Track the movie when clicked
                         window.location.href = `details.html?movieId=${movieId}`;
                     });
 
@@ -175,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('click', (event) => {
         if (event.target.classList.contains('details-button')) {
             const mediaId = event.target.getAttribute('data-media-id');
-            trackRecentlyWatched(mediaId); // Track the media when clicked
             const type = event.target.getAttribute('data-type');
 
             if (type === "movie") {
@@ -187,36 +164,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-
-    function getUserCountry() {
-        const user = firebase.auth().currentUser;
-        if (user) {
-            return db.collection("users").doc(user.uid).get()
-                .then(doc => {
-                    if (doc.exists) {
-                        console.log(doc.data().country)
-                        return doc.data().country; // Return country from Firestore
-                    } else {
-                        console.warn("No country found in Firestore.");
-                        return null; // Return null if no country is found
-                    }
-                });
-        } else {
-            return Promise.resolve(localStorage.getItem('country')); // Return from localStorage if not logged in
-        }
-    }
-
-    // Fetch and display content based on user's country
-    getUserCountry().then(country => {
-        const countryCode = country ? country.toUpperCase() : 'US'; // Default to US if no country found
-        fetchAndDisplayMovies(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&region=${countryCode}`, 'featured-grid');
-        fetchAndDisplayMovies(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&region=${countryCode}`, 'trending-grid');
-        fetchAndDisplayMovies(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&region=${countryCode}`, 'new-releases-grid');
-        fetchAndDisplayTVShows(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&region=${countryCode}`, 'featured-tv-grid');
-        fetchAndDisplayTVShows(`https://api.themoviedb.org/3/tv/top_rated?api_key=${apiKey}&region=${countryCode}`, 'trending-tv-grid');
-    }).catch(error => {
-        console.error("Error fetching country:", error);
-    });
 
 
 
@@ -358,6 +305,8 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchAndDisplayMovies(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`, 'featured-grid');
     fetchAndDisplayMovies(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}`, 'trending-grid');
     fetchAndDisplayMovies(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`, 'new-releases-grid');
+    fetchAndDisplayTVShows(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}`, 'featured-tv-grid');
+    fetchAndDisplayTVShows(`https://api.themoviedb.org/3/tv/top_rated?api_key=${apiKey}`, 'trending-tv-grid');
 
     fetchRandomHeroImage();
     setInterval(fetchRandomHeroImage, 10000); // Change hero image every 10 seconds
