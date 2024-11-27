@@ -56,19 +56,7 @@ try {
                                 if (doc.exists) {
                                     const userData = doc.data();
                                     const userRole = userData.role;
-
-                                    if (userRole === 'admin') {
-                                        Swal.fire({
-                                            title: "Successfully logged in",
-                                            text: "Redirecting to Admin Dashboard...",
-                                            icon: "success",
-                                            timer: 3000,
-                                            showConfirmButton: false,
-                                        });
-                                        setTimeout(() => {
-                                            window.location.href = "../admin/Dashboard.html";
-                                        }, 1500);
-                                    } else {
+ 
                                         Swal.fire({
                                             title: "Successfully logged in",
                                             text: "Redirecting to Dashboard...",
@@ -79,7 +67,7 @@ try {
                                         setTimeout(() => {
                                             window.location.href = "../user/Dashboard/";
                                         }, 1500);
-                                    }
+                                    
                                 } else {
                                     hideloader();
                                     displayMessage('.error-msg', "No user data found!");
