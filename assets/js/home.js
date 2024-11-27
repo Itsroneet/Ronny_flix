@@ -1,31 +1,3 @@
-document.addEventListener("DOMContentLoaded", function() {
-
-    // Listen for authentication state changes
-    auth.onAuthStateChanged((user) => {
-      const loginLinks = document.querySelectorAll('a[href="auth/login.html"]');
-      try {
-        if (user) {
-          // User is logged in, replace "Login" with "Dashboard"
-          loginLinks.forEach(link => {
-            link.href = "/user/Dashboard/";  // Absolute path might help here
-            link.textContent = "Dashboard";
-          });
-        } else {
-          // User is not logged in, keep "Login"
-          loginLinks.forEach(link => {
-            link.href = "/auth/login.html";  // Absolute path might help here
-            link.textContent = "Login";
-          });
-        }
-      } catch (error) {
-        console.error("Error updating links:", error);
-      }
-    }); 
-    }); 
-    
-
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
     const heroSection = document.getElementById('hero');

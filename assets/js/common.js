@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Listen for authentication state changes
   auth.onAuthStateChanged((user) => {
     const loginLinks = document.querySelectorAll('a[href="auth/login.html"]');
-    try {
+   
       if (user) {
         // User is logged in, replace "Login" with "Dashboard"
         loginLinks.forEach(link => {
@@ -33,9 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
           link.textContent = "Login";
         });
       }
-    } catch (error) {
-      console.error("Error updating links:", error);
-    }
+   
   }); 
   }); 
   
