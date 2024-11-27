@@ -5,13 +5,16 @@
 // ----------  firebase stuffs   -----------------------
 // ----------------------------------------------
   
-try {
+
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
+
+
+document.addEventListener("DOMContentLoaded", function() {
 
   // Listen for authentication state changes
   auth.onAuthStateChanged((user) => {
@@ -33,12 +36,10 @@ const storage = firebase.storage();
     } catch (error) {
       console.error("Error updating links:", error);
     }
-  });
+  }); 
+  }); 
   
-} catch (error) {
-  console.error("Error Updating links")
-  
-}
+ 
 
 
 
