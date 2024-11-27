@@ -14,29 +14,33 @@ const db = firebase.firestore();
 const storage = firebase.storage();
 
 
-document.addEventListener("DOMContentLoaded", function() {
-
+document.addEventListener("DOMContentLoaded", function () {
   // Listen for authentication state changes
   auth.onAuthStateChanged((user) => {
-    const loginLinks = document.querySelectorAll('a[href="auth/login.html"]');
-   
+    try {
+      const loginLinks = document.querySelectorAll('a[href="auth/login.html"]');
+      
       if (user) {
         // User is logged in, replace "Login" with "Dashboard"
         loginLinks.forEach(link => {
-          link.href = "/user/Dashboard/";  // Absolute path might help here
+          link.href = "/user/Dashboard/"; // Adjusted for absolute paths
           link.textContent = "Dashboard";
         });
+        console.log("logged in")
       } else {
         // User is not logged in, keep "Login"
         loginLinks.forEach(link => {
-          link.href = "/auth/login.html";  // Absolute path might help here
+          link.href = "/auth/login.html"; // Adjusted for absolute paths
           link.textContent = "Login";
         });
+        console.log("not logged in")
       }
-   
-  }); 
-  }); 
-  
+    } catch (error) {
+      console.error("Error updating links:", error);
+    }
+  });
+});
+
  
 
 
