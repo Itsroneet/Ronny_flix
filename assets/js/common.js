@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Listen for authentication state changes
   auth.onAuthStateChanged((user) => {
     try {
-      const loginLinks = document.querySelectorAll('a[href="auth/login.html"]');
+      const loginLinks = document.querySelectorAll('a[href="auth/login"]');
       
       if (user) {
         // User is logged in, replace "Login" with "Dashboard"
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         // User is not logged in, keep "Login"
         loginLinks.forEach(link => {
-          link.href = "/auth/login.html"; // Adjusted for absolute paths
+          link.href = "/auth/login"; // Adjusted for absolute paths
           link.textContent = "Login";
         });
         console.log("not logged in")
