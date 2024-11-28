@@ -3,19 +3,26 @@ firebase.initializeApp(firebaseConfig);
 var auth = firebase.auth();
 var db = firebase.firestore();
 
-// auth.onAuthStateChanged((user) => {
-//     if (user) {
+auth.onAuthStateChanged((user) => {
+    let container = document.querySelector(".userloggedin");
+    let namearea = document.getElementById("username");
 
-//         Swal.fire({
-//             title: `welcome back ${user.displayname} `,
-//             text: "will you like to go to dashboard",
-//             showCancelButton: true,
-//             confirmButtonText: "Back to dashbaord",
-//             cancelButtonText: "Cancel",
-//         });
-//     }
-// } 
-// );
+    if (user) {
+        const displayName = user.displayName || "User"; // Fallback if displayName is undefined
+        const emailVerified = user.emailVerified; // Check if email is verified
+
+        if (emailVerified) {
+            namearea.textContent = `${displayName} !!`;
+        } else {
+            container.remove();
+        }
+    } else {
+        if (container) {
+            container.remove();
+        }
+    }
+});
+
 
 
 // Password visibility toggle function
@@ -63,7 +70,6 @@ try {
                 .then(function (userCredential) {
                     const user = userCredential.user;
 
-                    if (user.emailVerified) {
                         // Fetch user role from Firestore
                         db.collection("users").doc(user.uid).get()
                             .then(function (doc) {
@@ -91,10 +97,7 @@ try {
                                 displayMessage('.error-msg', error.message);
                                 hideloader();
                             });
-                    } else {
-                        hideloader();
-                        displayMessage('.error-msg', "Please verify your email before logging in.");
-                    }
+                    
                 })
                 .catch(function (error) {
                     hideloader();
@@ -118,48 +121,50 @@ try {
         var email = document.getElementById('reg-email').value;
         var password = document.getElementById('reg-password').value;
         var confirmPassword = document.getElementById('c-password').value;
-        const button = signupForm.querySelector('.btn');
-
+    
         if (password !== confirmPassword) {
             hideloader();
             displayMessage('.error-msg', "Passwords do not match!");
             return;
         }
-
+    
         auth.createUserWithEmailAndPassword(email, password)
             .then(function (userCredential) {
                 const user = userCredential.user;
-
-                // Update user display name
-                user.updateProfile({
-                    displayName: name
-                })
+                const baseUrl = `${window.location.protocol}//${window.location.host}`;
+                console.log(baseUrl);  // e.g., "https://example.com"
+                
+                // Custom action URL settings
+                const actionCodeSettings = {
+                    url: `${baseUrl}/user/dashboard/`, // Replace with your domain
+                    handleCodeInApp: true // Open in your app, set to false for opening in browser
+                };
+    
+                // Update user profile with display name
+                user.updateProfile({ displayName: name })
                     .then(function () {
-                        // Send email verification
-                        user.sendEmailVerification()
+                        // Send verification email with custom action URL
+                        user.sendEmailVerification(actionCodeSettings)
                             .then(function () {
                                 hideloader();
                                 displayMessage('.success-msg', "Account created! Please verify your email.");
                             })
                             .catch(function (error) {
                                 hideloader();
-                                displayMessage('.error-msg', "Error sending verification email.");
+                                displayMessage('.error-msg', "Error sending verification email: " + error.message);
                             });
-
+    
                         // Save user data to Firestore
                         db.collection("users").doc(user.uid).set({
                             name: name,
                             email: email,
-                            role: "user"  // Default role for new users
-                        })
-                            .then(function () {
-                                sessionStorage.setItem('userEmail', email);
-                                signupForm.reset();
-                            })
-                            .catch(function (error) {
-                                hideloader();
-                                displayMessage('.error-msg', error.message);
-                            });
+                            role: "user" // Default role
+                        }).then(function () {
+                            signupForm.reset();
+                        }).catch(function (error) {
+                            hideloader();
+                            displayMessage('.error-msg', "Error saving user data: " + error.message);
+                        });
                     })
                     .catch(function (error) {
                         hideloader();
@@ -168,10 +173,10 @@ try {
             })
             .catch(function (error) {
                 hideloader();
-                const userFriendlyMessage = getFriendlyErrorMessage(error.code);
-                displayMessage('.error-msg', userFriendlyMessage);
+                displayMessage('.error-msg', getFriendlyErrorMessage(error.code));
             });
     });
+    
 } catch (error) {
     // Handle form-related errors
 }
@@ -237,7 +242,7 @@ function getFriendlyErrorMessage(errorCode) {
         'auth/requires-recent-login': 'Please log in again to perform this action.'
     };
 
-    return errorMessages[errorCode] || 'Incorrect password. Please try again.';
+    return errorMessages[errorCode] || 'Something wents wrong. Please try again.';
 }
 
 
@@ -338,22 +343,26 @@ function createAccount(user) {
 }
 
 // Google Sign-Up Button Event
-document.getElementById("googleSignUpBtn").addEventListener("click", function () {
-    auth.signInWithPopup(provider)
-        .then(function (result) {
-            const user = result.user;
-            console.log("User Info:", user);
-
-            // Always create a new account in Firestore
-            createAccount(user);
-        })
-        .catch(function (error) {
-            console.error("Error during Google Sign-Up:", error.message);
-            Swal.fire({
-                title: "Error",
-                text: error.message,
-                icon: "error",
+try {
+    document.getElementById("googleSignUpBtn").addEventListener("click", function () {
+        auth.signInWithPopup(provider)
+            .then(function (result) {
+                const user = result.user;
+                console.log("User Info:", user);
+    
+                // Always create a new account in Firestore
+                createAccount(user);
+            })
+            .catch(function (error) {
+                console.error("Error during Google Sign-Up:", error.message);
+                Swal.fire({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error",
+                });
             });
-        });
-});
-
+    });
+    
+} catch (error) {
+    
+}

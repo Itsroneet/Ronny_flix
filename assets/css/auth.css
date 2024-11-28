@@ -197,7 +197,38 @@ h2{
   align-items: center;
 }
 
+.userloggedin{
+  margin: 0 auto 13px;
+    padding: 10px;
+    border-radius: 5px;
+    display: grid;
+    gap: 10px;
+}
 
+.userloggedin h3{
+  margin: 0;
+  color: white;
+}
+
+.userloggedin h3 span{
+color: red;
+font-family: sans-serif;
+}
+
+#Backtodash{
+  text-decoration: none;
+  background: red;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  transition: all .3s;
+  border: 1px solid transparent;
+
+  &:hover{
+    background: transparent;
+border-color: red;
+  }
+}
 
 /* -------------------------------------------
 -------------------------------------------

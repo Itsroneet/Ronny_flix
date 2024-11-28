@@ -857,6 +857,19 @@ box-shadow: 0px 0px 10px;
     transform: translateY(-2px);
 }
 
+#forget-pass{
+    display: block;
+    color: red;
+    text-decoration: none;
+    background: transparent;
+    margin: 15px auto ;
+    border: 1px solid red;
+
+    &:hover{
+        color: black;
+    }
+}
+
 /* Modal Animations */
 @keyframes fadeIn {
     from {

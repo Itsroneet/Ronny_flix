@@ -178,38 +178,71 @@ document.getElementById('cancel-delete').addEventListener('click', function () {
 });
 
 // Handle account deletion when "Yes, Delete Account" is clicked
-document.getElementById('confirm-delete').addEventListener('click', function () {
+document.getElementById('confirm-delete').addEventListener('click', async function () {
     const user = auth.currentUser;
 
     if (user) {
-        // Delete user data from Firestore
-        db.collection("users").doc(user.uid).delete()
-            .then(() => {
-                // Delete the user's account from Firebase Authentication
-                user.delete()
-                    .then(() => {
-                        // Close the modal and show a confirmation message
-                        document.getElementById('confirmation-modal').style.display = 'none';
-                        // Redirect to a logout or goodbye page
-                        window.location.href = '/';  // Customize this page as needed
-                    })
-                    .catch((error) => {
-                        // Close the modal and show an error message
-                        document.getElementById('confirmation-modal').style.display = 'none';
-                        displayMessage('.error-msg', "Error deleting account: " + error.message);
-                    });
-            })
-            .catch((error) => {
-                // Close the modal and show an error message
-                document.getElementById('confirmation-modal').style.display = 'none';
-                displayMessage('.error-msg', "Error deleting user data: " + error.message);
+        // Show SweetAlert2 password prompt and hide the confirmation modal
+        document.getElementById('confirmation-modal').style.display = 'none';  // Hide the confirmation modal immediately
+
+        const { value: password } = await Swal.fire({
+            title: 'Enter your password to confirm account deletion',
+            input: 'password',
+            inputPlaceholder: 'Password',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Confirm Deletion',
+            cancelButtonText: 'Cancel',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to enter a password!';
+                }
+            }
+        });
+
+        // If no password is provided, cancel the deletion process
+        if (!password) {
+            return;
+        }
+
+        try {
+            // Disable the button or show a loader here if needed
+            document.getElementById('confirm-delete').disabled = true;
+
+            // Re-authenticate the user with the entered password
+            const credential = firebase.auth.EmailAuthProvider.credential(user.email, password);
+            await user.reauthenticateWithCredential(credential);
+
+            // Delete user data from Firestore
+            await db.collection("users").doc(user.uid).delete();
+
+            // Delete the user's account from Firebase Authentication
+            await user.delete();
+
+            // Close modal and redirect
+            window.location.href = '/'; // Customize this URL
+
+        } catch (error) {
+            console.error("Error during account deletion:", error.message);
+            // Show error message for incorrect password or any other issue
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: 'Incorrect password or something went wrong. Please try again.'
             });
+        } finally {
+            // Reset button or hide loader
+            document.getElementById('confirm-delete').disabled = false;
+        }
     } else {
-        // Close the modal and show an error if no user is logged in
         document.getElementById('confirmation-modal').style.display = 'none';
-        displayMessage('.error-msg', "No user is currently logged in.");
+        showMessage('.error-msg', "No user is currently logged in.");
     }
 });
+
+
 
 
     // ------------------------------------------------
@@ -431,3 +464,60 @@ togglePasswordVisibility('old-password', 'toggleOldPassword');
 togglePasswordVisibility('new-password', 'toggleNewPassword');
 togglePasswordVisibility('confirm-password', 'toggleConfirmPassword');
 
+
+
+document.getElementById("forget-pass").addEventListener("click", () => {
+    const user = auth.currentUser; // Get the currently logged-in user
+  
+    if (user) {
+      auth.sendPasswordResetEmail(user.email)
+        .then(() => {
+          showMessage(`Password reset email sent to ${user.email}. Check your inbox.`, true);
+          startCooldown(); // Start the cooldown timer
+        })
+        .catch((error) => {
+          showMessage(`Failed to send reset email: ${error.message}`, false);
+        });
+    } else {
+      showMessage("No user is currently logged in.", false);
+    }
+  });
+  
+  function startCooldown() {
+    const forgetPassBtn = document.getElementById("forget-pass");
+  
+    const cooldownTime = 60; // 60 seconds cooldown
+    const cooldownEnd = Date.now() + cooldownTime * 1000; // Calculate when cooldown ends
+  
+    localStorage.setItem("cooldownEnd", cooldownEnd); // Save cooldown end time in localStorage
+  
+    forgetPassBtn.disabled = true; // Disable the button
+    updateButtonTimer(forgetPassBtn, cooldownEnd);
+  }
+  
+  function updateButtonTimer(forgetPassBtn, cooldownEnd) {
+    const interval = setInterval(() => {
+      const remainingTime = Math.max(0, Math.round((cooldownEnd - Date.now()) / 1000)); // Calculate remaining time
+  
+      if (remainingTime > 0) {
+        forgetPassBtn.textContent = `Wait ${remainingTime}s to resend reset link`; // Update button text with the timer
+      } else {
+        clearInterval(interval); // Stop the countdown
+        forgetPassBtn.disabled = false; // Re-enable the button
+        forgetPassBtn.textContent = "Forgot Password?"; // Reset button text
+        localStorage.removeItem("cooldownEnd"); // Clear cooldown state
+      }
+    }, 1000); // Update every second
+  }
+  
+  // Check cooldown on page load
+  window.addEventListener("load", () => {
+    const forgetPassBtn = document.getElementById("forget-pass");
+  
+    const cooldownEnd = localStorage.getItem("cooldownEnd");
+    if (cooldownEnd && Date.now() < cooldownEnd) {
+      forgetPassBtn.disabled = true;
+      updateButtonTimer(forgetPassBtn, cooldownEnd);
+    }
+  });
+  
