@@ -445,7 +445,6 @@ transition: all .3s;
     height: 0;
         transform: translatex(-110%);
         overflow: hidden;
-        transition: transform .4s linear .3s, width .2s ;
     }
     
     .nav-links.active{
