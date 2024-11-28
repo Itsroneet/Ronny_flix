@@ -14,18 +14,18 @@ const db = firebase.firestore();
 const storage = firebase.storage();
 
 
-document.addEventListener("DOMContentLoaded", function () {
   // Listen for authentication state changes
   auth.onAuthStateChanged((user) => {
     try {
-      const loginLinks = document.querySelectorAll('a[href="auth/login.html"]');
+      const loginLinks = document.querySelectorAll('a[href="/auth/login"]');
       
       if (user) {
         // User is logged in, replace "Login" with "Dashboard"
         loginLinks.forEach(link => {
           link.href = "/user/Dashboard/"; // Adjusted for absolute paths
+          link.textContent = "Dashboard";
         });
-        console.log("logged in")
+       
       } else {
         // User is not logged in, keep "Login"
         loginLinks.forEach(link => {
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error updating links:", error);
     }
   });
-});
+
 
  
 

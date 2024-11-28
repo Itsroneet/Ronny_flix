@@ -871,7 +871,7 @@ body {
     max-width: 80vw;
   }
 }
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 330px) {
   .error h2,
   .movie-id h2 {
     font-size: 1rem;
@@ -880,4 +880,10 @@ body {
   .error p {
     font-size: 0.4rem;
   }
+
+  /* Footer Links */
+.footer-newsletter,.footer-about {
+  flex: 1;
+  min-width: 200px;
+}
 }

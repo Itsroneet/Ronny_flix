@@ -3,12 +3,20 @@ firebase.initializeApp(firebaseConfig);
 var auth = firebase.auth();
 var db = firebase.firestore();
 
+// auth.onAuthStateChanged((user) => {
+//     if (user) {
 
-auth.onAuthStateChanged((user) => {
-          if (user) {
-            window.location.href = "../user/Dashboard/";        }
-    } 
-);
+//         Swal.fire({
+//             title: `welcome back ${user.displayname} `,
+//             text: "will you like to go to dashboard",
+//             showCancelButton: true,
+//             confirmButtonText: "Back to dashbaord",
+//             cancelButtonText: "Cancel",
+//         });
+//     }
+// } 
+// );
+
 
 // Password visibility toggle function
 function togglePasswordVisibility(inputId, toggleId) {

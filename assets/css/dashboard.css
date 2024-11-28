@@ -211,9 +211,11 @@ body {
 .nav-links a.active {
     background-color: red; /* Orange red for active link */
     padding-left: 25px;
+    border: 1px solid transparent;
 
     &:hover{
-        background: rgb(150, 17, 17);
+        background: rgb(65, 4, 4);
+        border-color: red;
         color: white;
     }
 }
@@ -443,12 +445,15 @@ transition: all .3s;
     height: 0;
         transform: translatex(-110%);
         overflow: hidden;
+        transition: transform .4s linear .3s, width .2s ;
     }
     
     .nav-links.active{
-    transform: translatex(0);
-    height: fit-content;
+        transform: translatex(0);
+        height: fit-content;
 }
+
+
 
 .not-found{
     font-size: 1.5rem;
