@@ -327,39 +327,5 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchRandomHeroImage();
     setInterval(fetchRandomHeroImage, 10000); // Change hero image every 10 seconds
 
-    document.addEventListener("DOMContentLoaded", () => {
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "Backspace" || event.key === "Escape") {
-            event.preventDefault();
-            Swal.fire({
-              title: "Are you sure?",
-              text: "Do you really want to quit the app?",
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonText: "Yes, quit",
-              cancelButtonText: "No, stay",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                window.close();
-              }
-            });
-          }
-        });
-      
-        document.querySelector("#quit-button")?.addEventListener("click", () => {
-          Swal.fire({
-            title: "Are you sure?",
-            text: "Do you really want to quit the app?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, quit",
-            cancelButtonText: "No, stay",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.close();
-            }
-          });
-        });
-      });
-      
+    
 });
