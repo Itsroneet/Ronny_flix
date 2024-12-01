@@ -468,25 +468,7 @@ main {
 }
 
 
-@media screen and (max-width:900px) {
 
-    #superembed-player{
-        flex-direction: column-reverse;
-    }
-
-
-    .sel-container2{
-        display: flex;
-    }
-    
-    #video-frame{
-        width: 100%;
-    }
-
-    #video-container{
-        width: 100%;
-    }
-}
 
 @media screen and (max-width:768px) {
 
@@ -507,24 +489,7 @@ main {
 
 
 @media screen and (max-width:600px) {
-    .selector {
-    
-        padding: 12px;
-            gap: 10px;
-    }
-    
-    /* Style for the label */
-    .selector label {
-        font-size: 8px; /* Larger font size for better readability */
-        margin-right: 6px; /* Space between label and dropdown */
-    }
-    
-    /* Style for the dropdown (select) */
-    .select {
-        padding: 7px; /* Adds padding inside the dropdown */
-        font-size: 10px; /* Font size */
 
-    }
 
     .play-btn {
         margin-top: 0;
@@ -544,23 +509,4 @@ main {
     .related-images{
         width: 95%;
     }
-}
-
-@media screen and (max-width:420px) {
-    .select {
-        font-size: 7px; /* Font size */
-
-    }
-
-    .selector {
-    
-        padding: 5px;
-            gap: 7px;
-    }
-}
-
-@media screen and (max-width:320px) {
-   .sel-container{
-    width: 120%;
-   }
 }

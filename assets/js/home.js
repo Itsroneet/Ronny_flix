@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             <div class="hover-info">
                                 <h3>${movie.title}</h3>
                                 <p><b>Release :</b> ${movie.release_date}</p>
-                                <button class="details-button" data-media-id="${movie.id}" data-type="movie"">Watch <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                                <button class="watch-button" data-media-id="${movie.id}" data-type="movie"">Watch <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                                <button class="details-button" data-media-id="${movie.id}" data-type="movie"">Details <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
                             </div>
                                                                                         <p class="content-type">Movies</p>
 
@@ -131,7 +132,8 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="hover-info">
                 <h3>${media.title || media.name}</h3>
                 <p><b>Release :</b> ${media.release_date || media.first_air_date}</p>
-                <button class="details-button series-details-button" data-media-id="${media.id}" data-type="${type}">Watch <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                <button class="watch-button series-watch-button" data-media-id="${media.id}" data-type="${type}">Watch <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                <button class="details-button series-details-button" data-media-id="${media.id}" data-type="${type}">Details <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
             </div>
                                                             <p class="content-type">Series</p>
 
@@ -160,6 +162,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.location.href = `details.html?movieId=${mediaId}`;
             } else {
                 window.location.href = `tv-show-details.html?tvId=${mediaId}`;
+            }
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (event.target.classList.contains('watch-button')) {
+            const mediaId = event.target.getAttribute('data-media-id');
+            const type = event.target.getAttribute('data-type');
+
+            if (type === "movie") {
+                window.location.href = `watch.html?movie=${mediaId}`; 
+            } else {
+                window.location.href = `watch.html?tv=${mediaId}`; 
             }
         }
     });
@@ -312,7 +327,39 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchRandomHeroImage();
     setInterval(fetchRandomHeroImage, 10000); // Change hero image every 10 seconds
 
-
-
-
+    document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Backspace" || event.key === "Escape") {
+            event.preventDefault();
+            Swal.fire({
+              title: "Are you sure?",
+              text: "Do you really want to quit the app?",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonText: "Yes, quit",
+              cancelButtonText: "No, stay",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.close();
+              }
+            });
+          }
+        });
+      
+        document.querySelector("#quit-button")?.addEventListener("click", () => {
+          Swal.fire({
+            title: "Are you sure?",
+            text: "Do you really want to quit the app?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, quit",
+            cancelButtonText: "No, stay",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.close();
+            }
+          });
+        });
+      });
+      
 });

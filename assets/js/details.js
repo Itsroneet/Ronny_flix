@@ -81,121 +81,15 @@ function displayMovieDetails(movie) {
     movieDetailsContainer.classList.add('active');
 
 
-    const providerSelect = document.getElementById('provider-select');
-    const playButton = document.getElementById('play-button');
-    const videoFrame = document.getElementById('video-frame');
-    const videoFramelogo = document.querySelector('.video-watermark');
-    let endpoint = '';
 
-    // Function to set endpoint based on selected provider
-    function updateEndpoint() {
-        const provider = providerSelect.value;
-
-
-        if (provider === 'vidsrc') {
-            endpoint = `https://vidsrc.cc/v2/embed/movie/${movie.id}?autoPlay=true`;
-        }
-        else if (provider === 'vidsrc2') {
-            endpoint = `https://vidsrc2.to/embed/movie/${movie.id}`;
-        }
-        else if (provider === 'superembed') {
-            endpoint = `https://multiembed.mov/?video_id=${movie.id}&tmdb=1`;
-        }
-        else if (provider === 'vidsrcxyz') {
-            endpoint = `https://vidsrc.xyz/embed/movie/${movie.id}`;
-        }
-        else if (provider === 'embedsoap') {
-            endpoint = `https://www.embedsoap.com/embed/movie/?id=${movie.id}`;
-        }
-        else if (provider === 'autoembed') {
-            endpoint = `https://player.autoembed.cc/embed/movie/${movie.id}`;
-        }
-        else if (provider === 'smashystream') {
-            endpoint = `https://player.smashy.stream/movie/${movie.id}`;
-        }
-
-        else if (provider === 'anime') {
-            endpoint = `https://anime.autoembed.cc/embed/${movie.id}-episode-1`;
-        }
-        else if (provider === '2animesub') {
-            endpoint = `https://2anime.xyz/embed/${movie.id}-episode-1`;
-        }
-        else if (provider === '2embed') {
-            endpoint = `https://www.2embed.cc/embed/${movie.id}`;
-        }
-
-        else if (provider === 'nontonGo') {
-            endpoint = `https://www.NontonGo.win/embed/movie/${movie.id}`;
-        }
-        else if (provider === 'vidsrcnl') {
-            endpoint = `https://player.vidsrc.nl/embed/movie/${movie.id}`;
-        }
-
-        else if (provider === 'vidsrc.rip') {
-            endpoint = `https://vidsrc.rip/embed/movie/${movie.id}`;
-        }
-
-        else if (provider === 'vidbinge') {
-            endpoint = `https://vidbinge.dev/embed/movie/${movie.id}`;
-        }
-
-        else if (provider === 'moviesapi') {
-            endpoint = `https://moviesapi.club/movie/${movie.id}`;
-        }
-
-        else if (provider === 'moviee') {
-            endpoint = `https://moviee.tv/embed/movie/${movie.id}`;
-        }
-
-        else if (provider === 'multiembed') {
-            endpoint = `https://multiembed.mov/?video_id=${movie.id}&tmdb=1`;
-        }
-
-        else if (provider === 'embedsu') {
-            endpoint = `https://embed.su/embed/movie/${movie.id}`;
-        }
-
-        else if (provider === 'multiembedvip') {
-            endpoint = `https://multiembed.mov/directstream.php?video_id=${movie.id}&tmdb=1`;
-        }
-
-        else if (provider === 'vidsrcicu') {
-            endpoint = `https://vidsrc.icu/embed/movie/${movie.id}`;
-        }
-        else if (provider === 'trailer') {
-            endpoint = `https://www.youtube.com/embed/${trailer.key}?autoplay=1`;
-        }
-    }
-
-    // Triggered when "Play" button is clicked
-    playButton.addEventListener('click', function () {
-        updateEndpoint();
-        if (endpoint) {
-            videoFrame.src = endpoint;
-            videoFrame.style.display = 'block';
-            videoFramelogo.style.display = 'block';
-        }
-    });
-
-    // // Clear video frame source when server is changed
-    // providerSelect.addEventListener('change', function () {
-    //     videoFrame.style.display = 'none';
-    //     videoFramelogo.style.display = 'none';
-    //     videoFrame.src = '';
-    // });
-
-
-
+  
+   
     document.querySelector(".watch-now").addEventListener("click", function () {
         handleWatchNow(movieId);
-        updateEndpoint();
-        if (endpoint) {
-            videoFrame.src = endpoint;
-            videoFrame.style.display = 'block';
-            videoFramelogo.style.display = 'block';
-        }
+        const mediaId = movieId; // For movie
+        const mediaType = "movie"; // Change to "tv" if it's a TV show
+        window.location.href = `watch.html?movie=${mediaId}`;
     });
-
 
 
 
@@ -379,7 +273,6 @@ function handleWatchNow(movieId, movieTitle) {
     auth.onAuthStateChanged(async (user) => {
         if (!user) {
             // Display the player for unauthenticated users
-            document.getElementById("superembed-player").style.display = "flex";
             console.log("User not logged in");
             return;
         }
@@ -401,7 +294,6 @@ function handleWatchNow(movieId, movieTitle) {
             console.log("Movie added to Recently Watched:", newMovie);
 
             // Display the player
-            document.getElementById("superembed-player").style.display = "flex";
         } catch (error) {
             console.error("Error handling Recently Watched:", error);
         }

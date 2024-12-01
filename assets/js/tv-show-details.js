@@ -94,15 +94,11 @@ function displayTVShowDetails(show) {
 
     // "Watch Now" button functionality
     document.querySelector(".watch-now").addEventListener("click", function () {
-        document.getElementById("superembed-player").style.display = "flex";
-        updateEndpoint();
-        if (endpoint) {
-            videoFrame.src = endpoint;
-            videoFrame.style.display = 'block';
-            videoFramelogo.style.display = 'block';
-        }
+        const mediaId = tvId; // For movie
+        const mediaType = "tv"; // Change to "tv" if it's a TV show
+        window.location.href = `watch.html?tv=${mediaId}`;
     });
-
+    
 
 }
 
@@ -159,150 +155,8 @@ if (tvId) {
 //======================================= 
 //======================================= 
 
-const providerSelect = document.getElementById('provider-select');
-const seasonSelect = document.getElementById('season-select');
-const episodeSelect = document.getElementById('episode-select');
-const playButton = document.getElementById('play-button');
-const videoFrame = document.getElementById('video-frame');
-const videoFramelogo = document.querySelector('.video-watermark');
-let endpoint = '';
-let tmdbSeries = {}; // Initialize tmdbSeries
-
-// Fetch series data and populate the season dropdown
-async function fetchSeriesData(seriesId) {
-    try {
-        const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}?api_key=${apiKey}`);
-        tmdbSeries = await response.json();
-
-        // Populate season select dropdown
-        tmdbSeries.seasons.forEach(season => {
-            const option = document.createElement('option');
-            option.value = season.season_number;
-            option.textContent = `Season ${season.season_number}`;
-            seasonSelect.appendChild(option);
-        });
-
-        // Set default season to 1 and trigger change to load episodes for season 1
-        seasonSelect.value = 1;
-        seasonSelect.dispatchEvent(new Event('change'));
-    } catch (error) {
-        console.error('Error fetching series data:', error);
-    }
-}
-
-// Fetch episode count for a selected season and populate episode select dropdown
-async function fetchEpisodes(seriesId, seasonNumber) {
-    try {
-        const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}/season/${seasonNumber}?api_key=${apiKey}`);
-        const seasonData = await response.json();
-
-        // Clear current episode options
-        episodeSelect.innerHTML = '';
-
-        // Populate episode select dropdown based on the episode count
-        seasonData.episodes.forEach(episode => {
-            const option = document.createElement('option');
-            option.value = episode.episode_number;
-            option.textContent = `Episode ${episode.episode_number}`;
-            episodeSelect.appendChild(option);
-        });
-
-        // Set default episode to 1
-        episodeSelect.value = 1;
-    } catch (error) {
-        console.error('Error fetching episode data:', error);
-    }
-}
-
-// Event listener for season selection to fetch and populate episodes
-seasonSelect.addEventListener('change', function () {
-    const selectedSeason = seasonSelect.value;
-    if (selectedSeason) {
-        fetchEpisodes(tmdbSeries.id, selectedSeason);
-    }
-});
-
-function updateEndpoint() {
-    const provider = providerSelect.value;
-    const seasonNumber = seasonSelect.value;
-    const episodeNumber = episodeSelect.value;
-    const seriesId = tmdbSeries.id;
-
-    if (provider === 'vidsrc') {
-        endpoint = `https://vidsrc.cc/v2/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?autoPlay=true`;
-    }
-    else if (provider === 'vidsrc2') {
-        endpoint = `https://vidsrc2.to/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
-    }
-    else if (provider === 'superembed') {
-        endpoint = `https://multiembed.mov/?video_id=${seriesId}&tmdb=1&s=${seasonNumber}&e=${episodeNumber}`;
-    }
-    else if (provider === 'vidsrcxyz') {
-        endpoint = `https://vidsrc.xyz/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
-    }
-    else if (provider === 'embedsoap') {
-        endpoint = `https://www.embedsoap.com/embed/series/?id=${seriesId}&s=${seasonNumber}&e=${episodeNumber}`;
-    }
-    else if (provider === 'autoembed') {
-        endpoint = `https://player.autoembed.cc/embed/series/${seriesId}/${seasonNumber}-${episodeNumber}`;
-    }
-    else if (provider === 'smashystream') {
-        endpoint = `https://player.smashy.stream/series/${seriesId}/${seasonNumber}-${episodeNumber}`;
-    }
-    else if (provider === 'anime') {
-        endpoint = `https://anime.autoembed.cc/embed/${seriesId}-episode-${episodeNumber}`;
-    }
-    else if (provider === '2animesub') {
-        endpoint = `https://2anime.xyz/embed/${seriesId}-episode-${episodeNumber}`;
-    }
-    else if (provider === '2embed') {
-        endpoint = `https://www.2embed.cc/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
-    }
-    else if (provider === 'nontonGo') {
-        endpoint = `https://www.NontonGo.win/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
-    }
-    else if (provider === 'vidsrcnl') {
-        endpoint = `https://player.vidsrc.nl/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
-    }
-    else if (provider === 'vidsrc.rip') {
-        endpoint = `https://vidsrc.rip/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
-    }
-    else if (provider === 'vidbinge') {
-        endpoint = `https://vidbinge.dev/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
-    }
-    else if (provider === 'moviesapi') {
-        endpoint = `https://moviesapi.club/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
-    }
-    else if (provider === 'moviee') {
-        endpoint = `https://moviee.tv/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
-    }
-    else if (provider === 'multiembed') {
-        endpoint = `https://multiembed.mov/?video_id=${seriesId}&tmdb=1&s=${seasonNumber}&e=${episodeNumber}`;
-    }
-    else if (provider === 'embedsu') {
-        endpoint = `https://embed.su/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
-    }
-    else if (provider === 'multiembedvip') {
-        endpoint = `https://multiembed.mov/directstream.php?video_id=${seriesId}&tmdb=1&s=${seasonNumber}&e=${episodeNumber}`;
-    }
-    else if (provider === 'vidsrcicu') {
-        endpoint = `https://vidsrc.icu/embed/series/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}`;
-    }
-
-}
 
 
-playButton.addEventListener('click', function () {
-    updateEndpoint();
-    if (endpoint) {
-        videoFrame.src = endpoint;
-        videoFrame.style.display = 'block';
-        videoFramelogo.style.display = 'block';
-    }
-});
-
-// Call fetchSeriesData with your series ID
-fetchSeriesData(tvId);
 
 
 

@@ -355,21 +355,21 @@ left: 100%;
   color: white;
 }
 
-.details-button{
+.details-button,.watch-button{
   width: 60%;
-  margin-top: 30px;
+  margin-top: 20px;
   padding: 10px 20px;
   border-radius: 25px;
   border: 1px solid red;
-  background: none;
-  color: red;
+  background: #000000b8;
   font-family: sans-serif;
-  transition: all .3s ease-in ;
+  transition: all .3s ease-in;
   cursor: pointer;
-}
+  color: white;
 
-.details-button:hover{
+  &:hover{
   scale: 1.1;
+}
 }
 
 .content-main-grid{
@@ -567,15 +567,19 @@ scale: 1.03;
 
 
 @media only screen and (max-width: 500px) {
-.details-button{
+.details-button,.watch-button{
   font-size: .7rem;
 }
 
 }
 
 @media only screen and (max-width: 400px) {
-.details-button{
+.details-button,.watch-button{
   font-size: .6rem;
+}
+
+.hover-info p{
+    font-size: .9rem;
 }
 
 }
