@@ -120,9 +120,9 @@ footer.innerHTML=`<div class="footer-content">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/movies.html">Movies</a></li>
-          <li><a href="/tvshows.html">TV Shows</a></li>
           <li><a href="/contact.html">Contact Us</a></li>
           <li><a href="/about.html">About Us</a></li>
+          <li><a href="/Download.html">Download App</a></li>
         </ul>
       </div>
   
@@ -203,3 +203,83 @@ try {
 }
 
 
+/* ---------------------------------------
+-----------App download popup ------------
+--------------------------------------- */
+
+  
+// Function to check if the site is running on an Android device (not WebView)
+function isAndroidBrowser() {
+  const userAgent = navigator.userAgent.toLowerCase();
+
+  // Check if the user agent includes 'android'
+  const isAndroid = userAgent.indexOf('android') > -1;
+
+  // Exclude WebView (detect 'wv' or 'version/x.y.z' pattern in the user agent)
+  const isWebView = userAgent.indexOf('wv') > -1 || /version\/\d+\.\d+/i.test(userAgent);
+
+  return isAndroid && !isWebView;
+}
+
+// Function to create and append the popup HTML to the document
+function createPopup() {
+  const popupHTML = `
+    <div id="appCoolPopup" class="appPopup">
+      <div class="appPopupContent">
+        <span class="appCloseBtn" onclick="closePopup()">&times;</span>
+        <h2 class="appHeading">Get Our App</h2>
+        <p class="appDescription">Enjoy exclusive features and a seamless experience. Download the app now!</p>
+        <a href="/Download.html" class="popupdownloadbtn">Download Now</a>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', popupHTML);
+}
+
+
+// Function to show the popup
+function showPopup() {
+  // Check if the device is an Android browser (not WebView) and the popup has not been shown in this session
+  if (isAndroidBrowser() && !sessionStorage.getItem('popupShown')) {
+    const popup = document.getElementById('appCoolPopup');
+    
+    if (popup) {
+      // Set the popup to be visible
+      popup.style.display = 'flex';
+
+      // Start with opacity 0 for fade-in effect
+      popup.style.opacity = '0';
+      popup.style.transition = 'opacity 0.3s ease'; // Smooth transition
+
+      // Fade-in effect after a short delay
+      setTimeout(() => {
+        popup.style.opacity = '1'; // Fade in the popup
+      }, 100);
+
+      // Set a flag in sessionStorage to indicate the popup has been shown
+      sessionStorage.setItem('popupShown', 'true');
+    }
+  }
+}
+
+// Function to close the popup
+function closePopup() {
+  const popup = document.getElementById('appCoolPopup');
+  if (popup) {
+    popup.style.opacity = '0'; // Fade out the popup
+    setTimeout(() => {
+      popup.style.display = 'none'; // Hide the popup after the fade-out effect
+    }, 300); // Delay hiding the popup to allow for fade-out
+  }
+}
+
+setTimeout(() => {
+
+
+// Initialize the popup logic
+  createPopup(); // Create the popup
+  showPopup(); // Show the popup if conditions are met
+
+
+
+}, 3000);
