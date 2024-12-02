@@ -229,7 +229,9 @@ function createPopup() {
         <span class="appCloseBtn">&times;</span>
         <h2 class="appHeading">Get Our App</h2>
         <p class="appDescription">Enjoy exclusive features and a seamless experience. Download the app now!</p>
-        <a href="/Download.html" class="popupdownloadbtn">Download Now</a>
+           <a href="/assets/Android App/Version(1.0.2).apk" class="popupdownloadbtn" download="Ronny_Flix_App.apk">
+              <i class="fab fa-android"></i> Download for Android
+            </a>
       </div>
     </div>
   `;
