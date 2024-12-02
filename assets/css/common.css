@@ -154,6 +154,7 @@ body {
   position: fixed;
   width: 100%;
   top: 0;
+  left: 0;
   z-index: 9999999;
   box-shadow: 0px 3px 20px 0px var(--accent-color);
 }
@@ -698,7 +699,6 @@ body {
     height: 80px;
     width: 100%;
     text-align: right;
-    box-shadow: 0px 3px 20px 0px red;
     border-left: none;
   }
 
@@ -706,25 +706,48 @@ body {
     display: block;
   }
 
-  .dropdown {
-    display: none;
+  .nav-items ul li{
+    display: contents;
   }
+
+  .dropdown {
+    display: none !important;
+  }
+
+
+  .nav-items ul li a:focus:after,
+  .nav-items ul li a:hover:after {
+    width: 0%;
+  }
+  
+  .nav-items ul li .active:after {
+    width: 0%;
+  }
+  
+  .nav-items ul li .active {
+    border: none;
+    color: white;
+    background: red;
+    width: 57%;
+    border-radius: 7px;
+  }
+  
+
 
   .nav-items .mobile-menu {
     align-items: center;
     position: absolute;
     flex-direction: column;
     gap: 25px;
-    background: rgba(0, 0, 0, 0.815);
+    background: rgb(0, 0, 0);
     backdrop-filter: blur(3px);
-    width: 70%;
+    width: 100%;
     height: 100vh;
     padding: 0 0 35px 0;
     top: -20px;
     right: 0;
     z-index: 1;
     transform: translateX(100%);
-    border-left: 2px solid red;
     overflow: hidden;
     transition: all 0.4s;
   }
@@ -734,14 +757,15 @@ body {
   }
 
   .nav-items ul li a {
-    display: inline-block;
+    display: block;
     font-size: 1.8rem;
     padding: 10px 32px;
     width: 100%;
     margin: 0;
-    border-bottom: 2px solid red;
+    text-align: center;
   }
 
+ 
 
   .error h2,
   .movie-id h2 {
@@ -871,6 +895,15 @@ body {
     max-width: 80vw;
   }
 }
+
+
+@media screen and (max-width:350px) {
+  .watch-now{
+              display: inline-block;
+  }
+
+  }
+
 @media screen and (max-width: 330px) {
   .error h2,
   .movie-id h2 {

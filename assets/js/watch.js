@@ -15,8 +15,7 @@ const tvId = getQueryParam('tv'); // TV show ID parameter
 
 
 
-
-
+  
 
 
 
@@ -24,21 +23,27 @@ const tvId = getQueryParam('tv'); // TV show ID parameter
 // Get the iframe element
 const iframe = document.getElementById('video-player');
 const showNameElement = document.getElementById('show-name');
-const seasonsContainer = document.getElementById('seasons-container');
+const containerheader = document.getElementById('containerheader');
+const seasonsContainer = document.getElementById('seasons-actual-container');
 const loader = document.getElementById('loader');
 
 // Show loader while fetching data
 loader.style.display = 'block';
 
 
+
+
 async function fetchTVShowDetails(tvId) {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=${tmdbApiKey}`);
         const tvShowDetails = await response.json();
+        let description = document.getElementById("Description");
 
         // Update the show name element with the fetched name
         showNameElement.textContent = `Now Watching: ${tvShowDetails.name}`;
         document.title = `${tvShowDetails.name} - Ronny Flix`;
+        description.textContent = tvShowDetails.overview;
+        containerheader.textContent = `Seasons list`;
 
     } catch (error) {
         console.error('Error fetching TV show details:', error);
@@ -62,8 +67,7 @@ iframe.addEventListener('load', () => {
 if (movieId) {
     // Movie URL with the updated format
     
-    iframe.src = `https://vidbinge.dev/embed/movie/${movieId}`;
-    showNameElement.textContent = `Loading Movie: ${movieId}`;
+    iframe.src = `https://player.vidbinge.com/media/tmdb-movie-${movieId}`;
     console.log(`This is a movie with ID: ${movieId}`);
 
     // Hide loader as no seasons are needed for movies
@@ -71,7 +75,6 @@ if (movieId) {
     fetchMovieData(movieId);  // Fetch and show movie details and related movies
 } else if (tvId) {
     // TV show URL with the vidbinge format
-    iframe.src = `https://vidbinge.dev/embed/tv/${tvId}`;
     iframe.src = `https://vidbinge.dev/embed/tv/${tvId}`;
     fetchTVShowDetails(tvId);
 
@@ -152,14 +155,16 @@ async function fetchEpisodes(seriesId, seasonNumber, episodeContainer) {
             const episodeCard = document.createElement('div');
             episodeCard.classList.add('episode-card');
             episodeCard.innerHTML = `
-                <img src="https://image.tmdb.org/t/p/w500${seasonData.poster_path || 'https://via.placeholder.com/150'}" alt="${episode.name || `Episode ${episode.episode_number}`}" class="episode-thumbnail">
+                <img src="https://image.tmdb.org/t/p/w500${episode.still_path || '/placeholder.jpg'}" 
+                     alt="${episode.name || `Episode ${episode.episode_number}`}" 
+                     class="episode-thumbnail">
                 <div class="episode-details">
-                <h4>Episode ${episode.episode_number}:</h4>
-                <h3 id="ep-name">${episode.name || `Episode ${episode.episode_number}`}</h3>
+                    <h4>Episode ${episode.episode_number}:</h4>
+                    <h3 id="ep-name">${episode.name || `Episode ${episode.episode_number}`}</h3>
                 </div>
             `;
             episodeCard.addEventListener('click', function () {
-                loadEpisode(seriesId, episode.episode_number);
+                loadEpisode(seriesId, seasonNumber, episode.episode_number);
             });
 
             episodeContainer.appendChild(episodeCard);
@@ -169,21 +174,22 @@ async function fetchEpisodes(seriesId, seasonNumber, episodeContainer) {
     }
 }
 
-function loadEpisode(seriesId, episodeNumber) {
+function loadEpisode(seriesId, seasonNumber, episodeNumber) {
     // Update the iframe src to load the selected episode
-    iframe.src = `https://vidbinge.dev/embed/tv/${seriesId}?episode=${episodeNumber}`;
+    iframe.src = `https://vidbinge.dev/embed/tv/${seriesId}/${seasonNumber}/${episodeNumber}`;
 }
-
 
 
 async function fetchMovieData(movieId) {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${tmdbApiKey}`);
         const movieData = await response.json();
-
+let description = document.getElementById("Description")
         // Update the video player title
         showNameElement.textContent = `Now Playing: ${movieData.title}`;
+        description.textContent = movieData.overview;
         document.title = `${movieData.title} - Ronny Flix`;
+        containerheader.textContent = `Movies list`;
 
 
         // Fetch related movies
@@ -194,6 +200,8 @@ async function fetchMovieData(movieId) {
         showNameElement.textContent = "Error: Unable to fetch movie details.";
     }
 }
+
+
 
 async function fetchRelatedMovies(movieId) {
     try {
@@ -249,17 +257,14 @@ function displayRelatedMovies(relatedMovies) {
   
 
 
-// Access the content of the iframe
-var iframeDoc = iframe.contentWindow.document;
+const blockedDomains = ["ads.com", "adservice.google.com"];
+const originalOpen = XMLHttpRequest.prototype.open;
 
-// Find all div elements inside the iframe
-var divs = iframeDoc.getElementsByTagName('div');
-
-// Loop through each div and check if it contains the text "Vid Binge"
-for (var i = 0; i < divs.length; i++) {
-  if (divs[i].textContent.includes('Vid Binge')) {
-    // Remove the div that contains "Vid Binge"
-    divs[i].parentNode.removeChild(divs[i]);
+XMLHttpRequest.prototype.open = function (method, url) {
+  if (blockedDomains.some(domain => url.includes(domain))) {
+    console.log(`Blocked ad request: ${url}`);
+    return; // Block the request
   }
-}
+  return originalOpen.apply(this, arguments);
+};
 

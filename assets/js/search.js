@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     const title = result.title || result.name;
                     const mediaType = result.media_type;
                     const link = mediaType === 'movie' 
-                        ? `details.html?movieId=${result.id}` 
+                        ? `watch.html?movie=${result.id}`
                         : mediaType === 'tv' 
-                        ? `tv-show-details.html?tvId=${result.id}` 
+                        ? `watch.html?tv=${result.id}`
                         : '#';
 
                     // Initial HTML structure for each item

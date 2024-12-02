@@ -167,3 +167,9 @@ try {
 } catch (error) {
     console.error("Error in logout button event:", error);
 }
+
+
+document.getElementById("backtologin-dash").addEventListener("click", e=>{
+    window.location.href = '/auth/login.html';
+
+})

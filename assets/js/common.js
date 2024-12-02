@@ -8,10 +8,13 @@
 
 
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+try {
+  const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
+
+
 
 
   // Listen for authentication state changes
@@ -41,7 +44,9 @@ const storage = firebase.storage();
 
  
 
-
+} catch (error) {
+  
+}
 
 
 
