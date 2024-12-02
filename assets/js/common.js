@@ -224,7 +224,7 @@ function isAndroidBrowser() {
 // Function to create and append the popup HTML to the document
 function createPopup() {
   const popupHTML = `
-    <div id="appCoolPopup" class="appPopup">
+    <div id="appCoolPopup" class="appPopup" style="display: none;">
       <div class="appPopupContent">
         <span class="appCloseBtn">&times;</span>
         <h2 class="appHeading">Get Our App</h2>
@@ -234,15 +234,19 @@ function createPopup() {
     </div>
   `;
   document.body.insertAdjacentHTML('beforeend', popupHTML);
-}
 
+  // Add event listener to the close button after creating the popup
+  document.querySelector(".appCloseBtn").addEventListener("click", () => {
+    const popup = document.getElementById('appCoolPopup');
+    if (popup) popup.remove();
+  });
+}
 
 // Function to show the popup
 function showPopup() {
   // Check if the device is an Android browser (not WebView) and the popup has not been shown in this session
   if (isAndroidBrowser() && !sessionStorage.getItem('popupShown')) {
     const popup = document.getElementById('appCoolPopup');
-    
     if (popup) {
       // Set the popup to be visible
       popup.style.display = 'flex';
@@ -262,17 +266,9 @@ function showPopup() {
   }
 }
 
-document.querySelector(".appCloseBtn").addEventListener("click", e=>{
-  document.getElementById('appCoolPopup').remove();
-})
-
+// Delay the popup initialization to avoid interrupting the user's experience
 setTimeout(() => {
-
-
-// Initialize the popup logic
   createPopup(); // Create the popup
   showPopup(); // Show the popup if conditions are met
-
-
-
 }, 3000);
+
