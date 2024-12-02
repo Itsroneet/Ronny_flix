@@ -226,7 +226,7 @@ function createPopup() {
   const popupHTML = `
     <div id="appCoolPopup" class="appPopup">
       <div class="appPopupContent">
-        <span class="appCloseBtn" onclick="closePopup()">&times;</span>
+        <span class="appCloseBtn">&times;</span>
         <h2 class="appHeading">Get Our App</h2>
         <p class="appDescription">Enjoy exclusive features and a seamless experience. Download the app now!</p>
         <a href="/Download.html" class="popupdownloadbtn">Download Now</a>
@@ -262,16 +262,9 @@ function showPopup() {
   }
 }
 
-// Function to close the popup
-function closePopup() {
-  const popup = document.getElementById('appCoolPopup');
-  if (popup) {
-    popup.style.opacity = '0'; // Fade out the popup
-    setTimeout(() => {
-      popup.style.display = 'none'; // Hide the popup after the fade-out effect
-    }, 300); // Delay hiding the popup to allow for fade-out
-  }
-}
+document.querySelector(".appCloseBtn").addEventListener("click", e=>{
+  document.getElementById('appCoolPopup').remove();
+})
 
 setTimeout(() => {
 
