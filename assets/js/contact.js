@@ -1,63 +1,111 @@
-const form = document.getElementById('contactForm');
+const contactForm = document.getElementById("contactForm");
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent form from submitting normally
+contactForm.addEventListener("submit", function (event) {
+  event.preventDefault();
 
-    let isValid = true;
+  // Get form data
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message").value;
 
-    // Validate Name
-    const name = document.getElementById('name');
-    const nameError = name.nextElementSibling;
-    if (name.value.trim() === '') {
-        nameError.textContent = 'Name is required.';
-        nameError.style.display = 'block';
-        isValid = false;
-    } else {
-        nameError.style.display = 'none';
+  // Clear previous error messages
+  clearErrors();
+
+  // Validate inputs
+  const errors = validateForm(name, email, message);
+  
+  if (errors.length > 0) {
+    // If there are validation errors, display them
+    displayErrors(errors);
+    return;
+  }
+
+  // Display a loading alert
+  Swal.fire({
+    title: 'Sending...',
+    text: 'Please wait while we process your message.',
+    icon: 'info',
+    showConfirmButton: false,
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
     }
+  });
 
-    // Validate Email
-    const email = document.getElementById('email');
-    const emailError = email.nextElementSibling;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.value.trim())) {
-        emailError.textContent = 'Please enter a valid email.';
-        emailError.style.display = 'block';
-        isValid = false;
-    } else {
-        emailError.style.display = 'none';
-    }
+  // Prepare the data to send
+  const data = { name, email, message };
 
-    // Validate Message
-    const message = document.getElementById('message');
-    const messageError = message.nextElementSibling;
-    if (message.value.trim() === '') {
-        messageError.textContent = 'Message is required.';
-        messageError.style.display = 'block';
-        isValid = false;
-    } else {
-        messageError.style.display = 'none';
-    }
+  // Send the data to the Netlify function (via a POST request)
+  fetch('/.netlify/functions/send-email', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(response => response.json())
+    .then(result => {
+      // Close the loading alert
+      Swal.close();
 
-    // If all fields are valid
-    if (isValid) {
-        // Collect data
-        const toEmail = "recipient@example.com"; // Replace with recipient's email
-        const subject = `New message from ${name.value}`;
-        const body = `
-            <p><strong>Name:</strong> ${name.value}</p>
-            <p><strong>Email:</strong> ${email.value}</p>
-            <p><strong>Message:</strong></p>
-            <p>${message.value}</p>
-        `;
+      // Show success alert
+      Swal.fire({
+        title: 'Success!',
+        text: 'Your message has been sent successfully.',
+        icon: 'success',
+        confirmButtonText: 'Okay',
+      });
+    })
+    .catch(error => {
+      // Close the loading alert
+      Swal.close();
 
-        // Show loading alert
-        Swal.fire({
-            title: 'Under Maintaince',
-            text: 'Please try again later.',
-            icon: 'info',
-            showConfirmButton: true,
-        });
-
-      }
+      // Show error alert
+      Swal.fire({
+        title: 'Error!',
+        text: 'There was an issue sending your message. Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'Okay',
+      });
+    });
 });
+
+// Validate the form inputs
+function validateForm(name, email, message) {
+  const errors = [];
+
+  if (!name || name.trim() === "") {
+    errors.push({ field: "name", message: "Name is required." });
+  }
+
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!email || !emailRegex.test(email)) {
+    errors.push({ field: "email", message: "Please enter a valid email address." });
+  }
+
+  if (!message || message.trim() === "") {
+    errors.push({ field: "message", message: "Message cannot be empty." });
+  }
+
+  return errors;
+}
+
+// Display the error messages
+function displayErrors(errors) {
+  errors.forEach(error => {
+    const errorElement = document.querySelector(`#${error.field} + .error-message`);
+    if (errorElement) {
+      errorElement.textContent = error.message;
+      errorElement.style.display = 'block';
+    }
+  });
+}
+
+// Clear any existing error messages
+function clearErrors() {
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach((errorMessage) => {
+    errorMessage.textContent = "";
+    errorMessage.style.display = 'none';
+  });
+}
