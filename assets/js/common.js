@@ -1,4 +1,18 @@
 
+document.addEventListener('contextmenu', function(event) {
+  event.preventDefault(); // Prevent the context menu from appearing
+});
+
+
+// Create a new script element
+var script = document.createElement('script');
+
+// Set the script attributes
+script.src = 'https://cdn.jsdelivr.net/npm/disable-devtool';
+script.setAttribute('disable-devtool-auto', '');
+
+// Append the script to the document head or body
+document.head.appendChild(script); // or document.body.appendChild(script);
 
   
 // ----------------------------------------------
@@ -156,15 +170,35 @@ try {
     // Handle Enter key press
     Newsletterform.addEventListener('submit', (e) => {
     e.preventDefault();
-    Swal.fire({
-        position: "center",
-        icon: "error",
-        title: `Couldn't Subscribe `,
-        showConfirmButton: false,
-        timer: 1500,
-        customClass:"newsletteralert",
-      });
-      Newsletterform.reset();
+
+
+
+// Display a loading alert
+Swal.fire({
+  title: 'Subscribing',
+  text: 'Please wait while we process your Request.',
+  icon: 'info',
+  showConfirmButton: false,
+  allowOutsideClick: false,
+  didOpen: () => {
+    Swal.showLoading();
+  }
+});
+
+
+setTimeout(() => {
+  Swal.fire({
+    position: "center",
+    icon: "info",
+    title: `internal server Error `,
+    showConfirmButton: false,
+    timer: 1500,
+    customClass:"newsletteralert",
+  });
+  Newsletterform.reset();
+}, 2000);
+
+   
     });
 
 } catch (error) {

@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const movieItem = document.createElement('div');
                     movieItem.classList.add('content-item');
                     movieItem.innerHTML = `
-                            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+                            <img loading="lazy" src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
                             <div class="content-info">
                                 <h3>${movie.title}</h3>
                                 <p><b>Release :</b> ${movie.release_date}</p>
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const mediaItem = document.createElement('div');
         mediaItem.classList.add('content-item');
         mediaItem.innerHTML = `
-            <img src="https://image.tmdb.org/t/p/w500${media.poster_path}" alt="${media.title || media.name}">
+            <img loading="lazy" src="https://image.tmdb.org/t/p/w500${media.poster_path}" alt="${media.title || media.name}">
             <div class="content-info">
                 <h3>${media.title || media.name}</h3>
                 <p><b>Release :</b> ${media.release_date || media.first_air_date}</p>
