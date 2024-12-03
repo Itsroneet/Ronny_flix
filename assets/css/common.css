@@ -18,10 +18,15 @@ body {
 
   .adscontainer{
     max-height: 90px;
-    max-width: 85vw;
-      display: grid    ;
-          place-content: center;
-    }
+    /* max-width: 85vw; */
+    display: grid;
+    place-content: center;
+    overflow: hidden;
+}
+  
+.adscontainer iframe{
+  max-width: 90vw;
+}
   
 
 /* ---------------------------------
