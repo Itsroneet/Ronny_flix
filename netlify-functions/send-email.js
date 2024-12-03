@@ -19,12 +19,13 @@ exports.handler = async (event) => {
 
   // Nodemailer transport
   const transporter = nodemailer.createTransport({
-    service: 'gmail', // or your email provider
+    service: 'gmail', // or your email provider (Gmail in this case)
     auth: {
-      user: process.env.EMAIL_USER, // Your email address from .env
-      pass: process.env.EMAIL_PASS, // Your email password from .env
+      user: process.env.EMAIL_USER, // Ensure this is set in Netlify Environment Variables
+      pass: process.env.EMAIL_PASS, // Ensure this is set in Netlify Environment Variables
     },
   });
+
 
   // Email to support
   const supportMailOptions = {
@@ -877,7 +878,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
     `,
 
   };
-
+  
   try {
     // Send support email
     await transporter.sendMail(supportMailOptions);
