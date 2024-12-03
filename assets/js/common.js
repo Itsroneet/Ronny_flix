@@ -4,16 +4,15 @@ document.addEventListener('contextmenu', function(event) {
 });
 
 
-// Create a new script element
-var script = document.createElement('script');
+// // Create a new script element
+// var script = document.createElement('script');
 
-// Set the script attributes
-script.src = 'https://cdn.jsdelivr.net/npm/disable-devtool';
-script.setAttribute('disable-devtool-auto', '');
+// // Set the script attributes
+// script.src = 'https://cdn.jsdelivr.net/npm/disable-devtool';
+// script.setAttribute('disable-devtool-auto', '');
 
-// Append the script to the document head or body
-document.head.appendChild(script); // or document.body.appendChild(script);
-
+// // Append the script to the document head or body
+// document.head.appendChild(script); // or document.body.appendChild(script);
 
   
 // ----------------------------------------------
