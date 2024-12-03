@@ -1,0 +1,6 @@
+# Allow all robots to crawl the entire site
+User-agent: *
+Disallow:
+
+# Specify the location of the sitemap
+Sitemap: https://ronnyflix.netlify.app/sitemap.xml
