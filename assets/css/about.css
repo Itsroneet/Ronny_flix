@@ -8,7 +8,17 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
   }
-  
+
+
+
+  /* ads container */
+
+.adscontainer{
+    display: grid    ;
+        place-content: center;
+  }
+
+
 /* Header Section */
 .header {
     background: linear-gradient(135deg, #e53935, #b71c1c); /* Red gradient background */
