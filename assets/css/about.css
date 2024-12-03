@@ -11,15 +11,6 @@ body {
 
 
 
-  /* ads container */
-
-.adscontainer{
-  max-height: 90px;
-  max-width: 85vw;
-    display: grid    ;
-        place-content: center;
-  }
-
 
 /* Header Section */
 .header {
