@@ -14,7 +14,8 @@ document.addEventListener('contextmenu', function(event) {
 // // Append the script to the document head or body
 // document.head.appendChild(script); // or document.body.appendChild(script);
 
-  
+
+
 // ----------------------------------------------
 // ----------  firebase stuffs   -----------------------
 // ----------------------------------------------
