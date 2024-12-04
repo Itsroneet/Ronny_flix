@@ -257,14 +257,21 @@ function displayRelatedMovies(relatedMovies) {
   
 
 
+// List of domains to block
 const blockedDomains = ["ads.com", "adservice.google.com"];
+
+// Save the original XMLHttpRequest open method
 const originalOpen = XMLHttpRequest.prototype.open;
 
+// Override the open method
 XMLHttpRequest.prototype.open = function (method, url) {
+  // Check if the URL matches any of the blocked domains
   if (blockedDomains.some(domain => url.includes(domain))) {
-    console.log(`Blocked ad request: ${url}`);
-    return; // Block the request
+    console.warn(`Blocked ad request: ${url}`);
+    return; // Do not proceed with the request
   }
+
+  // Call the original open method for non-blocked requests
   return originalOpen.apply(this, arguments);
 };
 

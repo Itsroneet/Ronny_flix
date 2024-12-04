@@ -5,20 +5,24 @@
     box-sizing: border-box;
   }
 
+::-webkit-scrollbar{
+  display: none;
+}
+
   html{
     scroll-behavior: smooth;
   }
   
   body {
     font-family: 'Poppins', sans-serif;
-    background-color: #111;
+    background-color: #000;
     color: #fff;
     line-height: 1.6;
   }
   
   /* Header Section */
   .header {
-    background: linear-gradient(135deg, #e53935, #b71c1c); /* Red gradient background */
+    background: linear-gradient(135deg, #222121, #000000); /* Red gradient background */
     color: #fff;
     text-align: center;
     padding: 100px 20px; /* Increased padding for better visual spacing */
@@ -58,21 +62,24 @@
   }
   
   .cta-button {
+    text-align: center;
     display: inline-block;
-    margin-top: 30px;
+    margin-top: 15px;
     padding: 15px 35px;
-    background-color: #ffd6d6;
-    color: #e53935;
+    background-color: black;
+    color: white;
+    border: 1px solid red;
     font-size: 1.2rem;
     font-weight: 700;
     border-radius: 50px;
     text-decoration: none;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, transform 0.3s , box-shadow 0.4s;
   }
   
   .cta-button:hover {
-    background-color: #e53935;
-    color: #fff;
+    box-shadow: 0px 0px 20px 0px red;
+    color: black;
+    background-color: rgb(255, 254, 254);
     transform: scale(1.1);
   }
   
@@ -83,7 +90,7 @@
     left: 50%;
     width: 400px;
     height: 400px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(235, 12, 12, 0.1);
     border-radius: 50%;
     transform: translate(-50%, -50%);
     animation: pulse 4s ease-in-out infinite;
@@ -112,29 +119,70 @@
     }
   }
   
-  .container{
-    max-width: 85vw;
-    margin: auto;
-  }
-  
-  /* Download Section */
-  .download-section {
-    padding: 80px 0;
-    background-color: #222;
-    text-align: center;
-  }
-  
-  .download-section h2 {
-    font-size: 2.8rem;
-    margin-bottom: 20px;
-    color: #fff;
-  }
-  
-  .download-section p {
+
+section{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  background: black;
+  max-height: 300px;
+  margin: 10px 0;
+}
+
+
+.big-container{
+  width: 65%;
+    display: grid;
+    place-content: center;
+    padding: 15px;
+    gap: 15px;
+}
+
+.big-container h2{
+  font-size: 2rem;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.big-container {
+  font-size: 1.2rem;
+  font-family:Arial, Helvetica, sans-serif
+}
+
+.small-container{
+  display: flex;
+  justify-content: center;
+  width: 30%;
+}
+
+.small-container img{
+  height: 100%;
+  object-fit: cover;
+max-width: 100%;
+}
+
+#availablesoon{
+font-size: 15px;
+margin: -15px 0;
+}
+
+#android{
+  padding-bottom: 10px;
+}
+
+ #choose{
+  margin: 20px auto;
     font-size: 1.2rem;
-    color: #ccc;
-    margin-bottom: 40px;
-  }
+ }
+
+ .seperater{
+  height: 1px;
+  background: white;
+  width: 75%;
+  margin: auto;
+  margin-top: 10px;
+  box-shadow: 0px 0px 4px red;
+ }
+  
   
   /* Buttons */
   .buttons {
@@ -147,14 +195,16 @@
   .cta-button {
     padding: 15px 30px;
     font-size: 1.1rem;
+    width: 65%;
   }
   
   /* iOS Install Instructions Section */
   .install-ios {
-    background-color: #222;
-    padding: 40px 0;
+    background-color: #0e0e0e;
     text-align: center;
     color: #fff;
+    max-height: fit-content;
+    padding: 10px 5%;
   }
   
   .install-ios h3 {
@@ -218,16 +268,30 @@
       font-size: 1.2rem;
     }
   
-    .buttons {
-      flex-direction: column;
-      width: 70%;
-      margin: auto;
-      gap: 20px;
+
+
+    .big-container{
+      width: 65%;
     }
-  
-    .cta-button {
-      padding: 15px 30px;
+    
+    .big-container h2{
+      font-size: 1.4rem;
+    }
+    
+    .big-container p {
       font-size: 1rem;
+    }  
+   
+    
+    #availablesoon{
+    font-size: 12px;
+    margin: -12px 0;
+    }
+
+
+    .cta-button {
+      font-size: .8rem;
+      width: 55%;
     }
   
     .download-section h2 {
@@ -254,7 +318,7 @@
   }
   
   /* Extra Small Mobile Devices */
-  @media (max-width: 480px) {
+  @media (max-width: 550px) {
     .header h1 {
       font-size: 2.5rem;
     }
@@ -263,24 +327,35 @@
       font-size: 1rem;
     }
   
-    .download-section h2 {
-      font-size: 1.8rem;
+
+section{
+  max-height: 250px;
+}
+
+    .big-container{
+      width: 65%;
     }
-  
-    .download-section p {
-      font-size: 0.9rem;
+    
+    .big-container h2{
+      font-size: 1.2rem;
     }
-  
-    .buttons {
-      flex-direction: column;
-      width: 80%;
-      margin: auto;
+    
+    .big-container p {
+      font-size: .9rem;
+    }  
+   
+    
+    #availablesoon{
+    font-size: 10px;
+    margin: -10px 0;
     }
-  
+
+
     .cta-button {
-      font-size: 0.95rem;
-      padding: 12px 26px;
+      font-size: .6rem;
+      width: 80%;
     }
+  
   
     .install-ios h3 {
       font-size: 1.8rem;
@@ -296,3 +371,69 @@
     }
   }
   
+
+  @media (max-width:450px) {
+    section{
+      max-height: fit-content;
+      padding: 5px 2%;
+      flex-direction: column-reverse;
+    }
+
+#Tv{
+  flex-direction: column;
+}
+
+    .small-container{
+      width: 100%;
+    }
+    
+        .big-container{
+          width: 100%;
+          text-align: center;
+        }
+        
+        .big-container h2{
+          font-size: 1rem;
+        }
+        
+        .big-container p {
+          font-size: .65rem;
+        }  
+       
+        
+        #availablesoon{
+        font-size: 10px;
+        margin: -10px 0;
+        }
+    
+    
+        .cta-button {
+          font-size: .6rem;
+          width: 80%;
+          margin: auto;
+        }
+  }
+
+  @media (max-width:310px) {
+
+        
+        .big-container h2{
+          font-size: .9rem;
+        }
+        
+        .big-container p {
+          font-size: .55rem;
+        }  
+       
+        
+        #availablesoon{
+        font-size: 8px;
+        }
+    
+    
+        .cta-button {
+          font-size: .6rem;
+          width: 90%;
+          
+        }
+  }

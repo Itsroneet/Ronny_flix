@@ -26,18 +26,48 @@
     </div>
   </header>
 
-  <section class="download-section">
-    <div class="container">
-      <h2>Get the App Now</h2>
-      <p>Choose your platform to get started.</p>
-      <div class="buttons">
-          <a href="/assets/Android App/Ronny FLix (1.0.3).apk" class="cta-button android-btn" download="Ronny_Flix_App.apk">
-              <i class="fab fa-android"></i> Download for Android
-            </a>
-            <a href="#install-ios" class="cta-button ios-btn"><i class="fab fa-apple"></i> Download for iOS</a>
-                </div>
-    </div>
+  <section  >
+      <h3 id="choose">Choose your platform to get started.</h3>
   </section>
+
+  <div class="seperater"></div>
+  
+  <section id="android">
+    <div class="big-container">
+      <h2>Enjoy on your Android Device</h2>
+      <p>Stream unlimited movies and TV shows on your Android Device</p>
+      <a href="/assets/Android App/Ronny FLix (1.0.3).apk" class="cta-button android-btn" download="Ronny_Flix_App.apk"> <i class="fab fa-android"></i> Download for Android</a>
+    </div>
+    <div class="small-container"><img src="/assets/img/Mobile-framejpg.jpg" alt=""></div>
+  </section>
+
+  <div class="seperater"></div>
+  
+  
+  <section id="Tv">
+  <div class="small-container"><img src="/assets/img/Email/tv-ronnyflix.jpg" alt=""></div>
+<div class="big-container">
+  <h2>Enjoy on your Tv</h2>
+  <p>Stream unlimited movies and TV shows on your Tv </p>
+  <p id="availablesoon">( Will be available soon )</p>
+<button class="cta-button TV-btn"> <i class="fa-solid fa-tv"></i> Download for TV</button>
+</div>
+</section>
+
+<div class="seperater"></div>
+
+
+<section id="ios">
+<div class="big-container">
+  <h2>Enjoy on your ios device</h2>
+  <p>Stream unlimited movies and TV shows on your iphone ,ipad </p>
+  <a href="#install-ios" class="cta-button ios-btn"><i class="fab fa-apple"></i> Download for iOS</a>
+</div>
+<div class="small-container"><img src="/assets/img/Email/mobile.jpg" alt=""></div>
+</section>
+
+
+
 
   <section class="install-ios" id="install-ios">
     <div class="container">
@@ -54,6 +84,17 @@
     </div>
   </section>
 
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    document.querySelector(".TV-btn").addEventListener("click",e=>{
+      Swal.fire({
+  title: "Comming Soon !!",
+  text: "Will be available soon",
+  icon: "info"
+});    })
+  </script>
  
 </body>
 </html>
