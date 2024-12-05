@@ -10,97 +10,59 @@ const tmdbApiKey = '5a41a4ff0e4bfcc5608165fe4ae559ed'; // Replace with your actu
 const movieId = getQueryParam('movie'); // Movie ID parameter
 const tvId = getQueryParam('tv'); // TV show ID parameter
 
+// Local storage helper functions
+function getLocalStorage(key, defaultValue) {
+    return localStorage.getItem(key) || defaultValue;
+}
 
+function setLocalStorage(key, value) {
+    localStorage.setItem(key, value);
+}
 
-
-
-
-  
-
-
-
-
-// Get the iframe element
+// DOM elements
 const iframe = document.getElementById('video-player');
 const showNameElement = document.getElementById('show-name');
 const containerheader = document.getElementById('containerheader');
 const seasonsContainer = document.getElementById('seasons-actual-container');
 const loader = document.getElementById('loader');
+const iframeLoader = document.getElementById('iframe-loader');
 
-// Show loader while fetching data
+// Show loader initially
 loader.style.display = 'block';
+iframeLoader.style.display = 'flex';
 
+// Hide loader when iframe loads
+iframe.addEventListener('load', () => {
+    iframeLoader.style.display = 'none';
+});
 
-
-
+// Fetch and display TV show details
 async function fetchTVShowDetails(tvId) {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=${tmdbApiKey}`);
         const tvShowDetails = await response.json();
         let description = document.getElementById("Description");
 
-        // Update the show name element with the fetched name
         showNameElement.textContent = `Now Watching: ${tvShowDetails.name}`;
         document.title = `${tvShowDetails.name} - Ronny Flix`;
         description.textContent = tvShowDetails.overview;
         containerheader.textContent = `Seasons list`;
-
     } catch (error) {
         console.error('Error fetching TV show details:', error);
         showNameElement.textContent = "Error: Unable to fetch TV show details.";
     }
 }
 
-// Show the loader initially
-const iframeLoader = document.getElementById('iframe-loader');
-iframeLoader.style.display = 'flex'; // Flex to show it as a block container
-
-// Add event listener to hide the loader once iframe loads
-iframe.addEventListener('load', () => {
-    iframeLoader.style.display = 'none'; // Hide loader once the iframe loads
-});
-
-
-
-
-// Check if it's a movie or a TV show and set the iframe accordingly
-if (movieId) {
-    // Movie URL with the updated format
-    
-    iframe.src = `https://player.vidbinge.com/media/tmdb-movie-${movieId}`;
-    console.log(`This is a movie with ID: ${movieId}`);
-
-    // Hide loader as no seasons are needed for movies
-    loader.style.display = 'none';
-    fetchMovieData(movieId);  // Fetch and show movie details and related movies
-} else if (tvId) {
-    // TV show URL with the vidbinge format
-    iframe.src = `https://vidbinge.dev/embed/tv/${tvId}`;
-    fetchTVShowDetails(tvId);
-
-    console.log(`This is a TV show with ID: ${tvId}`);
-
-    // Fetch series data to get seasons and episodes
-    fetchSeriesData(tvId);
-} else {
-    console.error("Error: Missing required parameters in the URL.");
-    showNameElement.textContent = "Error: Missing required parameters in the URL.";
-    loader.style.display = 'none';
-}
-
-
+// Fetch series data and build season list
 async function fetchSeriesData(seriesId) {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}?api_key=${tmdbApiKey}`);
         const tmdbSeries = await response.json();
 
-        // Clear the seasons container
-        seasonsContainer.innerHTML = '';
+        seasonsContainer.innerHTML = ''; // Clear seasons container
 
-        // Remove season 0 if it exists
         tmdbSeries.seasons = tmdbSeries.seasons.filter(season => season.season_number !== 0);
 
-        // Iterate over the seasons and create cards for each season
         tmdbSeries.seasons.forEach(season => {
             const seasonCard = document.createElement('div');
             seasonCard.classList.add('season-card');
@@ -116,15 +78,12 @@ async function fetchSeriesData(seriesId) {
             const toggleButton = seasonCard.querySelector('.toggle-episodes');
             const episodeContainer = document.getElementById(`season-${season.season_number}`);
 
-            // Add event listener to toggle episodes on click
             toggleButton.addEventListener('click', function () {
-                // Collapse all other episode containers
                 const allEpisodeContainers = document.querySelectorAll('.episode-container');
                 allEpisodeContainers.forEach(container => {
                     if (container !== episodeContainer) container.style.display = 'none';
                 });
 
-                // Toggle current season
                 const isExpanded = episodeContainer.style.display === 'block';
                 episodeContainer.style.display = isExpanded ? 'none' : 'block';
                 toggleButton.textContent = isExpanded ? '+' : '-';
@@ -135,22 +94,21 @@ async function fetchSeriesData(seriesId) {
             });
         });
 
-        loader.style.display = 'none'; // Hide loader once data is fetched
+        loader.style.display = 'none';
     } catch (error) {
         console.error('Error fetching series data:', error);
         loader.style.display = 'none';
     }
 }
 
+// Fetch and display episodes for a season
 async function fetchEpisodes(seriesId, seasonNumber, episodeContainer) {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}/season/${seasonNumber}?api_key=${tmdbApiKey}`);
         const seasonData = await response.json();
 
-        // Clear previous episodes (if any)
-        episodeContainer.innerHTML = '';
+        episodeContainer.innerHTML = ''; // Clear previous episodes
 
-        // Create cards for each episode
         seasonData.episodes.forEach(episode => {
             const episodeCard = document.createElement('div');
             episodeCard.classList.add('episode-card');
@@ -164,6 +122,8 @@ async function fetchEpisodes(seriesId, seasonNumber, episodeContainer) {
                 </div>
             `;
             episodeCard.addEventListener('click', function () {
+                setLocalStorage(`season_${seriesId}`, seasonNumber);
+                setLocalStorage(`episode_${seriesId}`, episode.episode_number);
                 loadEpisode(seriesId, seasonNumber, episode.episode_number);
             });
 
@@ -174,47 +134,81 @@ async function fetchEpisodes(seriesId, seasonNumber, episodeContainer) {
     }
 }
 
+// Load selected episode
 function loadEpisode(seriesId, seasonNumber, episodeNumber) {
-    // Update the iframe src to load the selected episode
-    iframe.src = `https://vidbinge.dev/embed/tv/${seriesId}/${seasonNumber}/${episodeNumber}`;
+    const selectedServer = document.getElementById('tv-server-selector').value;
+    iframe.src = `${selectedServer}${seriesId}/${seasonNumber}/${episodeNumber}`;
 }
 
-
+// Fetch and display movie details
 async function fetchMovieData(movieId) {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${tmdbApiKey}`);
         const movieData = await response.json();
-let description = document.getElementById("Description")
-        // Update the video player title
+        let description = document.getElementById("Description");
+
         showNameElement.textContent = `Now Playing: ${movieData.title}`;
         description.textContent = movieData.overview;
         document.title = `${movieData.title} - Ronny Flix`;
         containerheader.textContent = `Movies list`;
-
-
-        // Fetch related movies
-        fetchRelatedMovies(movieId);
-
     } catch (error) {
         console.error('Error fetching movie data:', error);
         showNameElement.textContent = "Error: Unable to fetch movie details.";
     }
 }
 
+// Handle server switching
+document.getElementById('tv-server-selector').addEventListener('change', () => {
+    const seriesId = getQueryParam('tv');
+    const seasonNumber = getLocalStorage(`season_${seriesId}`, 1);
+    const episodeNumber = getLocalStorage(`episode_${seriesId}`, 1);
+    loadEpisode(seriesId, seasonNumber, episodeNumber);
+});
 
+document.getElementById('movie-server-selector').addEventListener('change', () => {
+    const movieId = getQueryParam('movie');
+    const selectedServer = document.getElementById('movie-server-selector').value;
+    iframe.src = `${selectedServer}${movieId}`;
+});
+
+// Initialization: Check for movie or TV show
+if (movieId) {
+    const selectedServer = document.getElementById('movie-server-selector').value;
+    iframe.src = `${selectedServer}${movieId}`;
+    document.getElementById('movie-server').style.display = "flex";
+    document.getElementById('sever-selecter-loader-main').style.display = "none";
+
+    fetchMovieData(movieId); // Fetch and display movie data
+
+    // Fetch and display related movies
+    fetchRelatedMovies(movieId);
+
+} else if (tvId) {
+    const savedSeason = getLocalStorage(`season_${tvId}`, 1);
+    const savedEpisode = getLocalStorage(`episode_${tvId}`, 1);
+    iframe.src = `https://vidbinge.dev/embed/tv/${tvId}/${savedSeason}/${savedEpisode}`;
+    document.getElementById('tv-server').style.display = "flex";
+    document.getElementById('sever-selecter-loader-main').style.display = "none";
+
+    fetchTVShowDetails(tvId); // Fetch TV show details
+    fetchSeriesData(tvId);    // Fetch and display seasons and episodes
+
+} else {
+    console.error("Error: Missing required parameters in the URL.");
+    showNameElement.textContent = "Error: Missing required parameters in the URL.";
+    loader.style.display = 'none';
+}
 
 async function fetchRelatedMovies(movieId) {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${tmdbApiKey}`);
         const relatedMoviesData = await response.json();
-
+        
         if (relatedMoviesData.results && relatedMoviesData.results.length > 0) {
-            // Display related movies
             displayRelatedMovies(relatedMoviesData.results);
         } else {
             seasonsContainer.innerHTML += '<div>No related movies found.</div>';
         }
-
     } catch (error) {
         console.error('Error fetching related movies:', error);
         seasonsContainer.innerHTML += '<div>Error loading related movies.</div>';
@@ -222,38 +216,59 @@ async function fetchRelatedMovies(movieId) {
 }
 
 function displayRelatedMovies(relatedMovies) {
+    // Create a container for related movies
     const relatedMoviesContainer = document.createElement('div');
     relatedMoviesContainer.classList.add('related-movies-container');
 
+    // Loop through each movie and create a card
     relatedMovies.forEach(movie => {
         const movieCard = document.createElement('div');
         movieCard.classList.add('movie-card');
         movieCard.innerHTML = `
-            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path || 'https://via.placeholder.com/150'}" alt="${movie.title}" class="movie-poster">
-            <div class="movie-info">
-                <h4>${movie.title}</h4>
-            </div>
+            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path || '/placeholder.jpg'}" 
+                 alt="${movie.title}" 
+                 class="movie-poster">
+            <h4>${movie.title}</h4>
         `;
-        
-        // Add click event to the movie card to load that movie
-        movieCard.addEventListener('click', () => {
-            window.location.href = `watch.html?movie=${movie.id}`;
-        });
-
         relatedMoviesContainer.appendChild(movieCard);
     });
 
-    // Append the related movies container below the video player
+    // Append related movies to the seasons container or any target container
+    seasonsContainer.innerHTML = ''; // Clear existing content if needed
     seasonsContainer.appendChild(relatedMoviesContainer);
 }
 
 
+// ----------remove sandbox-------------------------
 
 
 
+const movieServerSelector = document.getElementById('movie-server-selector');
+const tvServerSelector = document.getElementById('tv-server-selector');
+
+movieServerSelector.addEventListener('change', Removesandbox );
 
 
+function Removesandbox() {
+    const selectedOption = movieServerSelector.options[movieServerSelector.selectedIndex];
+    const isAds = selectedOption.classList.contains('ads');
+    const selectedServer = document.getElementById('movie-server-selector').value;
 
+    if (isAds) {
+        // Remove the sandbox attribute if ads server is selected
+        iframe.removeAttribute('sandbox'); // Ensure sandbox is removed
+        iframe.src = ''; // Clear the iframe src to force reload
+        iframe.src = `${selectedServer}${movieId}`;
+        console.log("Sandbox removed, and iframe reloaded with URL:", selectedServer);       
+    } else {
+       
+    }
+}
+
+
+// -----------------------------------------------
+// -----------------------------------------------
+// -----------------------------------------------
   
 
 
@@ -274,4 +289,3 @@ XMLHttpRequest.prototype.open = function (method, url) {
   // Call the original open method for non-blocked requests
   return originalOpen.apply(this, arguments);
 };
-

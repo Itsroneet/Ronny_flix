@@ -109,7 +109,6 @@
               
                 <iframe 
                 id="video-player" 
-                mode="no-cors"
                 src="" 
                 sandbox="allow-scripts allow-same-origin allow-presentation" 
                 frameborder="0" 
@@ -122,9 +121,41 @@
                     <p>Loading, please wait...</p>
                 </div>
                 
-               
+              
+              
 
-            <div class="textarea">
+            <div class="bottom-container">
+
+              <div class="server" id="sever-selecter-loader-main">
+              <div id="sever-selecter-loader" >
+                <i class="fas fa-spinner fa-spin"></i> Loading...
+            </div>
+            </div>
+              
+              <div class="server" id="movie-server">
+                <h4>Select Movie Server</h4>
+                <select id="movie-server-selector">
+                    <option class="no-ads" value="https://vidbinge.dev/embed/movie/">Server 1</option>
+                    <option class="no-ads" value="https://flicky.host/embed/movie/?id=">Server 2</option>
+                    <option class="no-ads" value="https://player.autoembed.cc/embed/movie/">Server 3</option>
+                    <option disabled value="">below server contain ads</option>
+                    <option class="ads" value="https://player.smashy.stream/movie/">Server 4</option>
+                    <option class="ads" value="https://moviesapi.club/movie/">Server 4</option>
+                </select>
+            </div>
+            <div class="server" id="tv-server">
+                <h4>Select TV Server</h4>
+                <select id="tv-server-selector">
+                    <option class="no-ads" value="https://vidbinge.dev/embed/tv/">Server 1</option>
+                    <option class="no-ads" value="https://flicky.host/embed/tv/?id=">Server 2</option>
+                    <option class="no-ads" class="no-ads" value="https://player.autoembed.cc/embed/tv/">Server 3</option>
+                    <option disabled value="">below server contain ads</option>
+                    <option class="ads" value="https://player.smashy.stream/tv/">Server 4</option>
+                    <option class="ads" value="https://moviesapi.club/tv/">Server 4</option>
+                </select>
+            </div>
+            
+
                 <div id="show-name" class="show-name">Loading...</div>
     <p id="Description">Loading</p>
             </div>
@@ -143,10 +174,10 @@
                 </div>
                 </div>
         </div>
-    
-    </main>
-
-    <footer class="footer"></footer>
+        
+      </main>
+      
+      
     <script src="assets/js/common.js"></script>
     <script src="assets/js/watch.js"></script>
 </body>

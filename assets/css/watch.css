@@ -15,7 +15,7 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    margin-bottom: 10vh;
 }
 
 /* Loader Styling */
@@ -114,7 +114,6 @@ main{
     margin-top: 100px;
     border-radius: 8px;
     gap: 2%;
-    margin-bottom: 10vh;
 }
 
 /* Left side: Video player */
@@ -142,11 +141,12 @@ main{
     border-radius: 5px;
 }
 
-.textarea{
+.bottom-container{
     background: #121212;
     padding: 10px;
     margin-top: 9px;
     border-radius: 8px;
+    margin-bottom: 3vh;
 }
 
 #Description{
@@ -271,6 +271,76 @@ main{
     margin-top: 20px;
 }
 
+#movie-server,#tv-server{
+    display: none;
+}
+
+.server{
+    display: flex    ;
+        padding: 14px;
+        width: 100%;
+        gap: 12px;
+        background: #00000080;
+        box-sizing: border-box;
+        margin: 12px auto;
+        align-items: center;
+    }
+
+
+/* General reset for select element */
+select {
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: black;
+    border: 1px solid #0056b3;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    appearance: none;
+    outline: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: fit-content;
+}
+
+/* Hover effect */
+select:hover {
+    border-color: #888;
+}
+
+/* Focus effect */
+select:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 4px rgba(0, 86, 179, 0.3);
+}
+
+/* Arrow customization */
+select::-ms-expand {
+    display: none; /* For IE */
+}
+
+select::after {
+    content: "▼"; /* Unicode arrow down */
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
+}
+
+/* Style for dropdown options */
+select option {
+    padding: 8px;
+    font-size: 14px;
+    color: white;
+    border: 1px solid #0056b3;
+    background-color: black;
+}
+
+select option:disabled{
+    background: #121212;
+    color: #0056b3;
+}
+
 .movie-card {
     width: 100%;
     text-align: center;
@@ -300,10 +370,34 @@ main{
 }
 
 
+
+
+@media (max-width: 1000px) {
+
+    .container{
+        flex-direction: column;
+
+    }
+    .video-player-container,
+    .seasons-container {
+        width: auto;
+        height: auto;
+        min-height: 35vh;
+    }
+
+    #video-player{
+        height: 50vh;
+    }
+
+    #iframe-loader {
+        top: 28%;
+    }
+
+}
+
 @media (max-width: 768px) {
 
     .container {
-        flex-direction: column;
         gap: 20px;
         min-height: 100vh;
         padding: 20px 10px;
@@ -315,13 +409,7 @@ main{
         margin-top: 5px;
     }
 
-    .video-player-container,
-    .seasons-container {
-        width: auto;
-        height: auto;
-        min-height: 35vh;
-    }
-
+ 
     #iframe-loader {
 top: 35%;
     }
@@ -339,9 +427,7 @@ top: 35%;
         overflow: auto;
     }
 
-    #video-player{
-        height: 50vh;
-    }
+ 
 
     .toggle-episodes {
         font-size: 14px;
